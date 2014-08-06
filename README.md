@@ -1,4 +1,0 @@
-genericSAP
-==========
-
-Scheda Anagrafico-Professionale
