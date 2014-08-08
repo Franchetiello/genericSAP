@@ -34,6 +34,8 @@ $stylePath="assets/css/style.css";
 $styleResponsivePath="assets/css/style-responsive.css";
 $themePath="assets/css/themes/blue.css";
 
+$styleComponentsPath="assets/css/components.css";
+$stylePluginsPath="assets/css/plugins.css";
 
 $jsBackToTopPath="assets/plugins/back-to-top.js";    
  
@@ -54,7 +56,7 @@ function htmlDeclaration(){
 }
 
 function headDeclaration(){
-	global $fontAwesomePath, $bootstrapPath, $fancyboxPath, $rsStylePath, $settingsPath, $bxSliderPath, $styleMetronicPath, $stylePath, $styleResponsivePath, $themePath, $cssAppPath;
+	global $fontAwesomePath, $bootstrapPath, $fancyboxPath, $rsStylePath, $settingsPath, $bxSliderPath, $styleMetronicPath, $stylePath, $styleResponsivePath, $themePath, $cssAppPath, $styleComponentsPath, $stylePluginsPath;
 
 	echo "<link href=\"" . $fontAwesomePath . "\" rel=\"stylesheet\" type=\"text/css\"/>";
 	echo "<link href=\"" . $bootstrapPath . "\" rel=\"stylesheet\" type=\"text/css\"/>";
@@ -70,6 +72,9 @@ function headDeclaration(){
 	echo "<link href=\"" . $themePath . "\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
 	
 	echo "<link href=\"" . $cssAppPath . "\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
+	
+	echo "<link href=\"" . $styleComponentsPath . "\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
+	echo "<link href=\"" . $stylePluginsPath . "\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
 }
 
 function jsSection(){

@@ -1,19 +1,23 @@
 <?php
+require_once ('Anagrafe.php');
+require_once ('RiferimentiGeografici.php');
+require_once ('Recapiti.php');
+
 class Sap{
 	// members
 	protected $id;
-	protected $registryInfos;
-	protected $administrativeInfos;
+	protected $anagrafe;
+	protected $riferimentiAmministrativi;
 	protected $workHistoryInfos;
 	protected $qualificationInfos;
 
 	// constructors
 	public function __construct() {
-		$id = 0;
-		$registryInfos = 0;
-		$administrativeInfos = 0;
-		$workHistoryInfos = 0;
-		$qualificationInfos = 0;
+		$this->id = 0;
+		$this->anagrafe = 0;
+		$this->administrativeInfos = 0;
+		$this->workHistoryInfos = 0;
+		$this->qualificationInfos = 0;
 	}
 	
 	// methods

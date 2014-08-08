@@ -4,6 +4,11 @@ div.field{
 	padding-bottom: 10px;
 }
 
+div.verticaplGap{
+	clear: both;
+	min-height: 20px;
+}
+
 div.separator{
 	border-top: 1px solid #e0e0e0;
 	top-margin: 5px;
@@ -18,3 +23,8 @@ input[type=checkbox]{
 div.break{
 	clear: both;
 }
+
+.active{
+	background-color: rgba(75,141,248, 0.25);
+}
+

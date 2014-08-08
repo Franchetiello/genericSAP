@@ -2,7 +2,7 @@
  * 
  */
 
-function GetList(elementId, functionName, str){
+function GetList(elementId, functionName, str, param){
 	var _obj = document.getElementById(elementId);
 	if (str=="") {
 		_obj.innerHTML="";
@@ -16,17 +16,36 @@ function GetList(elementId, functionName, str){
 		
 		xmlhttp.onreadystatechange=function() {
 			if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-				alert(xmlhttp.responseText);
 				var res = xmlhttp.responseText;
 				document.getElementById(elementId).innerHTML = res;
 			}
 		}
-		xmlhttp.open("GET","functions/" + functionName + ".php?q=" + str,true);
+		
+		var additionalParam = "";
+		if (param.length > 0 ){ additionalParam = "&" + param; }
+		
+		xmlhttp.open("GET","functions/" + functionName + ".php?q=" + str + additionalParam,true);
 		xmlhttp.send();
 	}
-	//document.getElementById(elementId).innerHTML = xmlhttp.xmlhttp.responseText;
-	
-	//$('#'+elementId).html(options);
-	        
+}
+
+function GetRegionList(elementId, functionName, str, param){
+	if (str == '118'){
+		$("#spanRegioneNascita").show();
+		$("#regioneNascita").show();		
+		$("#spanProvinciaNascita").show();
+		$("#provinciaNascita").show();
+		$("#spanComuneNascita").show();
+		$("#comuneNascita").show();
+		
+		GetList(elementId, functionName, str, param);
+	}else{
+		$("#spanRegioneNascita").hide();
+		$("#regioneNascita").hide();		
+		$("#spanProvinciaNascita").hide();
+		$("#provinciaNascita").hide();
+		$("#spanComuneNascita").hide();
+		$("#comuneNascita").hide();
+	}
 }
 		
