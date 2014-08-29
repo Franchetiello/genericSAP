@@ -3,6 +3,21 @@
 	
 	require_once 'functions/pageSettings.php';
 	require_once 'functions/menu.php'; 
+	
+	if (isset($menu)) {
+		if (isset($_POST['submit'])) {
+			switch ($_POST['submit']) {
+				case 'forward' :
+					header("Location: sapSection05.php");
+					break;
+				case "backward" :
+					header("Location: sapSection03.php");
+					break;
+				default :
+					break;
+			}
+		}
+	}	
 ?>
 <!DOCTYPE html>
 <?php 
@@ -13,16 +28,21 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <?php 
-	headDeclaration();
+	headDeclaration("Scheda candidatura - Titoli");
 ?>
 </head>
 <body>
-	<form action="sapSection05.php" class="form-horizontal" method="post">
-		<?php  
-			DisplayMenu("menuSection04");
-		?>
+	<form action="sapSection04.php" class="form-horizontal" method="post">
 		<div class="container">
-			<div class="row">
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2">
+					<?php
+					DisplayMenu ( "menuSection04" );
+					?>
+				</div>
+				</div>
+				<div class="verticaplGap"></div>
+				<div class="row">
 				<div class="col-lg-8 col-lg-offset-2">
 					<div class="form-group">
 						<!-- 
@@ -32,8 +52,8 @@
 						 -->					
 					</div>
 					<div class="col-lg-12 field">
-						<input type="submit" name="submit" value="continua.."
-							class="btn default green pull-right">
+						<button id="submit" name="submit" value="backward" class="btn default green"><i class="glyphicon glyphicon-step-backward"></i>&nbsp;indietro..</button>
+						<button id="submit" name="submit" value="forward" class="btn default green pull-right">continua..&nbsp;<i class="glyphicon glyphicon-step-forward"></i></button>
 					</div>
 				</div>
 			</div>

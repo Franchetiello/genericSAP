@@ -1,8 +1,23 @@
 <?php
-session_start ();
-
-require_once 'functions/pageSettings.php';
-require_once 'functions/menu.php';
+	session_start ();
+	
+	require_once 'functions/pageSettings.php';
+	require_once 'functions/menu.php';
+	
+	if (isset($menu)) {
+		if (isset($_POST['submit'])) {
+			switch ($_POST['submit']) {
+				case 'forward' :
+					header("Location: sapSection03.php");
+					break;
+				case "backward" :
+					header("Location: sapSection01.php");
+					break;
+				default :
+					break;
+			}
+		}
+	}
 ?>
 <!DOCTYPE html>
 <?php
@@ -10,14 +25,12 @@ htmlDeclaration ();
 ?>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
 <?php
-headDeclaration ();
+headDeclaration ("Scheda candidato - Recapiti");
 ?>
 </head>
 <body>
-	<form action="sapSection03.php" class="form-horizontal" method="post">
+	<form action="sapSection02.php" class="form-horizontal" method="post">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 col-lg-offset-2">
@@ -39,6 +52,7 @@ headDeclaration ();
 									<div id="regioneResidenza" class="col-lg-5 field">
 									<?php
 									$targetId = "provinciaResidenza";
+									$controlId = "slcRegioneResidenza";
 									$childId = "p=comuneResidenza";
 									include 'functions/getRegioni.php';
 									?>
@@ -78,12 +92,13 @@ headDeclaration ();
 								<div class="portlet-body">
 									<span id="spanRegioneDomicilio" class="col-lg-3 control-label">regione</span>
 									<div id="regioneDomicilio" class="col-lg-5 field">
-									<?php
-									$targetId = "provinciaDomicilio";
-									$childId = "p=comuneDomicilio";
-									include 'functions/getRegioni.php';
-									?>
-								</div>
+										<?php
+										$targetId = "provinciaDomicilio";
+										$controlId = "slcRegioneDomicilio";
+										$childId = "p=comuneDomicilio";
+										include 'functions/getRegioni.php';
+										?>
+									</div>
 									<div class="break"></div>
 									<span id="spanProvinciaDomicilio"
 										class="col-lg-3 control-label">provincia</span>
@@ -112,11 +127,35 @@ headDeclaration ();
 									<div class="break"></div>
 								</div>
 							</div>
-
+							<div class="portlet blue box">
+								<div class="portlet-title">
+									<span class="caption">numeri telefonici</span>
+								</div>
+								<div class="portlet-body">
+									<span id="spanNumeroFisso" class="col-lg-3 control-label">telefono fisso</span>
+									<div class="col-lg-3 field">
+										<input type="text" id="numeroFisso" class="form-control"
+											value="">
+									</div>
+									<div class="break"></div>
+									<span id="spanNumeroMobile" class="col-lg-3 control-label">telefono cellulare</span>
+									<div class="col-lg-3 field">
+										<input type="text" id="numeroMobile" class="form-control"
+											value="">
+									</div>
+									<div class="break"></div>
+									<span id="spanEmail" class="col-lg-3 control-label">email</span>
+									<div class="col-lg-4 field">
+										<input type="text" id="email" class="form-control"
+											value="">
+									</div>
+									<div class="break"></div>
+								</div>
+							</div>
 						</div>
 						<div class="col-lg-12 field">
-							<input type="submit" name="submit" value="continua.."
-								class="btn default green pull-right">
+						<button id="submit" name="submit" value="backward" class="btn default green"><i class="glyphicon glyphicon-step-backward"></i>&nbsp;indietro..</button>
+						<button id="submit" name="submit" value="forward" class="btn default green pull-right">continua..&nbsp;<i class="glyphicon glyphicon-step-forward"></i></button>
 						</div>
 					</div>
 				</div>

@@ -1,7 +1,8 @@
 <?php
-require_once("RiferimentiGeografici.php");
+require_once ("CodeValue.php");
+require_once ("RiferimentiGeografici.php");
 
-class Anagrafe{
+class Anagrafe {
 	// membri
 	protected $id;
 	protected $nome;
@@ -10,18 +11,19 @@ class Anagrafe{
 	protected $luogoNascita;
 	protected $dataNascita;
 	protected $genere;
-	
-	// costruttori
-	public function __construct($Id, $Nome, $Cognome, $CodiceFiscale,RiferimentoGeografico $LuogoNascita, $DataNascita, $Genere){
-		$this->id = $Id;
-		$this->nome = $Nome;
-		$this->cognome = $Cognome;
-		$this->codiceFiscale = $CodiceFiscale;
-		$this->luogoNascita = new RiferimentoGeografico($LuogoNascita);
-		$this->dataNascita = $DataNascita;
-		$this->genere = $Genere;
-	}
-	
-}
+	protected $cittadinanza;
 
+	// costruttori
+	public function __construct($Id, $Nome, $Cognome, $CodiceFiscale, RiferimentoGeografico $LuogoNascita, $DataNascita, CodeValue $Genere, CodeValue $Cittadinanza) {
+		$this -> id = $Id;
+		$this -> nome = $Nome;
+		$this -> cognome = $Cognome;
+		$this -> codiceFiscale = $CodiceFiscale;
+		$this -> luogoNascita = new RiferimentoGeografico($LuogoNascita);
+		$this -> dataNascita = $DataNascita;
+		$this -> genere = new CodeValue($Genere);
+		$this -> cittadinanza = new CodeValue($Cittadinanza);
+	}
+
+}
 ?>

@@ -11,8 +11,13 @@ div.verticaplGap{
 
 div.separator{
 	border-top: 1px solid #e0e0e0;
-	top-margin: 5px;
-	bottom-margin: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+div.blockTitle{
+	border-bottom: 1px solid #e0e0e0;
+	clear: both;
 }
 
 input[type=checkbox]{

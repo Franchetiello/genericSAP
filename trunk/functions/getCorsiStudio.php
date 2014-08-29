@@ -6,36 +6,33 @@ if ($mysqli->connect_errno) {
 	echo "Impossibile connettersi a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 } else {
 	if (isset ( $_GET ['q'] )) {
-		$controlId = "slc". ucfirst($_GET ['q']);
-		$query = "SELECT 
-							`diz_comuni`.`IdComune` As Id,
-	    				`diz_comuni`.`comune_nome` As NomeComune
-						FROM 
-							`db_ebtt`.`diz_comuni`
-						WHERE
-							`diz_comuni`.`IdProvincia` = " . $_GET ['q'];
+		$_filter = substr($_GET ['q'], 0, 1) . "%";
 		
+		$query = "SELECT 
+	  						`diz_titoli_studio`.`codice`,
+						    `diz_titoli_studio`.`titolo`
+							FROM 
+								`diz_titoli_studio`
+							WHERE
+								`diz_titoli_studio`.`cod_lvl_1` LIKE '".$_filter."'";
+										
 		if ($result = mysqli_query ( $mysqli, $query )) {
 			
 			if (! mysqli_query ( $mysqli, "SET @a:='this will not work'" )) {
 				printf ( "Error: %s\n", mysqli_error ( $mysqli ) );
 				mysqli_free_result ( $result );
 			}
+			
 		}
 		
+				
 		$data = array ();
-		$controlId="nonDefinito";
-		if (isset ( $_GET ['p'] )) {
-			$childId = $_GET ['p'];
-			$controlId = str_replace("comune", "slcComune", $childId);
-		}
 		
-		echo "<select  id=\"".$controlId."\" name=\"".$controlId."\" class=\"form-control\">";
-		echo "<option value=\"\">selezionare un comune..</option>";
+		echo "<select id=\"slcCorsoStudio\" name=\"slcCorsoStudio\" class=\"form-control\" >";
+		echo "<option value=\"\">selezionare un corso di studio..</option>";
 		while ( $row = mysqli_fetch_array ( $result ) ) {
-			echo "<option value=\"" . $row ['Id'] . "\">" . $row ['NomeComune'] . "</option>";
+			echo "<option value=\"" . $row ['codice'] . "\">" . $row ['titolo'] . "</option>";
 		}
-		
 		echo "</select>";
 		
 		mysqli_free_result ( $result );

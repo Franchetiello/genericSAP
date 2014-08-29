@@ -29,7 +29,8 @@ if ($mysqli->connect_errno) {
 		if (isset ( $_GET ['p'] )) {
 			$childId = $_GET ['p'];
 			
-			echo "<select class=\"form-control\" onchange=\"javascript:GetList('" . $childId . "','getComuni',(this).value,'')\">";
+			$controlId = str_replace("comune", "slcProvincia", $childId);
+			echo "<select id=\"".$controlId."\" name=\"".$controlId."\" class=\"form-control\" onchange=\"javascript:GetList('" . $childId . "','getComuni',(this).value,'" ."p=" . $childId . "')\">";
 			echo "<option value=\"\">selezionare una provincia..</option>";
 			while ( $row = mysqli_fetch_array ( $result ) ) {
 				echo "<option value=\"" . $row ['Id'] . "\">" . $row ['NomeProvincia'] . "</option>";

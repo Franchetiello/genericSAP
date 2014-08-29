@@ -55,8 +55,11 @@ function htmlDeclaration(){
 	echo "<!--[if !IE]><!--> <html lang=\"".$lang."\"> <!--<![endif]-->";
 }
 
-function headDeclaration(){
+function headDeclaration($PageTitle){
 	global $fontAwesomePath, $bootstrapPath, $fancyboxPath, $rsStylePath, $settingsPath, $bxSliderPath, $styleMetronicPath, $stylePath, $styleResponsivePath, $themePath, $cssAppPath, $styleComponentsPath, $stylePluginsPath;
+	
+	echo "<meta charset=\"ISO-8859-1\">";
+	echo "<title>".$PageTitle."</title>";
 
 	echo "<link href=\"" . $fontAwesomePath . "\" rel=\"stylesheet\" type=\"text/css\"/>";
 	echo "<link href=\"" . $bootstrapPath . "\" rel=\"stylesheet\" type=\"text/css\"/>";
@@ -96,7 +99,7 @@ function jsSection(){
 	echo "<script src=\"" . $jsAppPath . "\" type=\"text/javascript\"></script>";
 	echo "<script src=\"" . $jsIndexPath . "\" type=\"text/javascript\"></script>";
 
-	echo "<script src=\"content/js/ajax.js\" type=\"text/javascript\"></script>";
+	echo "<script src=\"content/js/jsFunctions.js\" type=\"text/javascript\"></script>";
 	
 	echo "<script type=\"text/javascript\">";
 	echo "	jQuery(document).ready(function() {";
