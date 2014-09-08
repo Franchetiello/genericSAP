@@ -1,5 +1,8 @@
 <?php
 	session_start();
+	session_destroy();
+	
+	session_start();
 	
 	require_once 'functions/pageSettings.php';
 	//	require_once 'functions/menu.php';
@@ -33,7 +36,7 @@
 						<div class="col-lg-12 field">
 							<!--<input type="submit" id="submit" name="submit" 
 							class="btn default green pull-right">-->
-							<button name="submit" class="btn default green pull-right" value="forward">continua..<i class="glyphicon glyphicon-step-forward"></i></button>
+							<button name="submit" class="btn default green pull-right" value="forward">inizia..<i class="glyphicon glyphicon-step-forward"></i></button>
 						</div>
 					</div>
 				</div>

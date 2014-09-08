@@ -1,18 +1,24 @@
 <?php
 require_once ('config.php');
 
+if (!isset($provinciaSelezionata)) { $provinciaSelezionata = ""; }
+
 $mysqli = new mysqli ( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 if ($mysqli->connect_errno) {
 	echo "Impossibile connettersi a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 } else {
-	if (isset ( $_GET ['q'] )) {
+	if (isset($_GET['q'])){
 		$filter = $_GET ['q'];
-		
+	}	else {
+		if (isset($regioneSelezionata) & strlen($regioneSelezionata)){ $filter = $regioneSelezionata; }
+	}
+	
+	if (isset ($filter)) {
 		$query = "SELECT 
 						`diz_province`.`IdProvincia` As Id,
     				`diz_province`.`provincia_nome` As NomeProvincia
 					FROM 
-						`db_ebtt`.`diz_province`
+						`diz_province`
 					WHERE
 						`diz_province`.`IdRegione` = " . $filter;
 		
@@ -33,7 +39,7 @@ if ($mysqli->connect_errno) {
 			echo "<select id=\"".$controlId."\" name=\"".$controlId."\" class=\"form-control\" onchange=\"javascript:GetList('" . $childId . "','getComuni',(this).value,'" ."p=" . $childId . "')\">";
 			echo "<option value=\"\">selezionare una provincia..</option>";
 			while ( $row = mysqli_fetch_array ( $result ) ) {
-				echo "<option value=\"" . $row ['Id'] . "\">" . $row ['NomeProvincia'] . "</option>";
+				echo "<option value=\"" . $row ['Id'] . "\" ".($provinciaSelezionata == $row['Id'] ? "selected" : "").">" . $row ['NomeProvincia'] . "</option>";
 			}
 			
 			echo "</select>";
@@ -44,4 +50,9 @@ if ($mysqli->connect_errno) {
 	}
 	mysqli_close ( $mysqli );
 }
+
+unset($provinciaSelezionata);
+unset($regioneSelezionata);
+unset($filter);
+
 ?>

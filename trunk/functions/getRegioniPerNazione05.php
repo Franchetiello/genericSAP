@@ -9,10 +9,14 @@ else{
 }
 
 if($verifica == Italia){
-	$targetId = "provinciaNascita";
-	$controlId = "slcRegioneNascita";
-	$childId = "p=comuneNascita";
+	$targetId = "provinciaLuogoLavoro";
+	$controlId = "slcRegioneLuogoLavoro";
+	$childId = "p=comuneLuogoLavoro";
 	include 'getRegioni.php';	
+	unset($targetId);
+	unset($controlId);
+	unset($childId);
+	
 }
 
 //unset($regioneSelezionata);

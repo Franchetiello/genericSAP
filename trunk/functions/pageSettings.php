@@ -27,7 +27,8 @@ $settingsPath="assets/plugins/revolution_slider/rs-plugin/css/settings.css";
 $jqueryThemepunchPath="assets/plugins/revolution_slider/rs-plugin/js/jquery.themepunch.plugins.min.js";
 $jqueryThemepunchRevolutionPath="assets/plugins/revolution_slider/rs-plugin/js/jquery.themepunch.revolution.min.js";
 
-
+$jsDatePicker="content/js/datePicker.js";
+$jsComponentPicker="content/js/componentPickers.js";
 
 $styleMetronicPath="assets/css/style-metronic.css";
 $stylePath="assets/css/style.css";
@@ -47,6 +48,7 @@ $jsAppPath="assets/scripts/app.js";
 $jsIndexPath="assets/scripts/index.js";
 
 $cssAppPath = "content/css/sapEBTT.css";
+$styleDatePicker = "content/css/datePicker.css";
 
 function htmlDeclaration(){
 	global $lang;
@@ -56,7 +58,7 @@ function htmlDeclaration(){
 }
 
 function headDeclaration($PageTitle){
-	global $fontAwesomePath, $bootstrapPath, $fancyboxPath, $rsStylePath, $settingsPath, $bxSliderPath, $styleMetronicPath, $stylePath, $styleResponsivePath, $themePath, $cssAppPath, $styleComponentsPath, $stylePluginsPath;
+	global $fontAwesomePath, $bootstrapPath, $fancyboxPath, $rsStylePath, $settingsPath, $bxSliderPath, $styleMetronicPath, $stylePath, $styleResponsivePath, $themePath, $cssAppPath, $styleComponentsPath, $stylePluginsPath, $styleDatePicker;
 	
 	echo "<meta charset=\"ISO-8859-1\">";
 	echo "<title>".$PageTitle."</title>";
@@ -74,6 +76,8 @@ function headDeclaration($PageTitle){
 	echo "<link href=\"" . $styleResponsivePath . "\" rel=\"stylesheet\" type=\"text/css\"/>";
 	echo "<link href=\"" . $themePath . "\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
 	
+	echo "<link href=\"" . $styleDatePicker . "\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
+	
 	echo "<link href=\"" . $cssAppPath . "\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
 	
 	echo "<link href=\"" . $styleComponentsPath . "\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
@@ -81,7 +85,7 @@ function headDeclaration($PageTitle){
 }
 
 function jsSection(){
-	global $jqueryMigratePath, $jsBootstrapPath, $jsBackToTopPath, $jsFancyboxPath, $jsHoverDropdown, $jqueryThemepunchPath, $jqueryThemepunchRevolutionPath, $jsIE9orLesser, $jqueryPath, $jqueryBxsliderPath, $jsAppPath, $jsIndexPath;
+	global $jqueryMigratePath, $jsBootstrapPath, $jsBackToTopPath, $jsFancyboxPath, $jsHoverDropdown, $jqueryThemepunchPath, $jqueryThemepunchRevolutionPath, $jsIE9orLesser, $jqueryPath, $jqueryBxsliderPath, $jsAppPath, $jsIndexPath, $jsDatePicker, $jsComponentPicker;
 
 	echo "<script src=\"" . $jqueryPath . "\" type=\"text/javascript\"></script>";
 	echo "<script src=\"" . $jsBootstrapPath . "\" type=\"text/javascript\"></script>";
@@ -98,7 +102,10 @@ function jsSection(){
 	echo "<script src=\"" . $jqueryBxsliderPath . "\" type=\"text/javascript\"></script>";
 	echo "<script src=\"" . $jsAppPath . "\" type=\"text/javascript\"></script>";
 	echo "<script src=\"" . $jsIndexPath . "\" type=\"text/javascript\"></script>";
-
+	
+	echo "<script src=\"" . $jsDatePicker . "\" type=\"text/javascript\"></script>";
+	echo "<script src=\"" . $jsComponentPicker . "\" type=\"text/javascript\"></script>";
+	
 	echo "<script src=\"content/js/jsFunctions.js\" type=\"text/javascript\"></script>";
 	
 	echo "<script type=\"text/javascript\">";
@@ -106,6 +113,8 @@ function jsSection(){
 	echo "		App.init();"; 
 	echo "		App.initBxSlider();";
 	echo "		Index.initRevolutionSlider();";
+	echo "		Metronic.init();";	
+	echo "		ComponentsPickers.init();";
 	echo "	});";
 	echo "</script>";
 } 

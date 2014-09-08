@@ -1,8 +1,17 @@
 <?php
-	session_start ();
+	session_start();
 	
-	require_once 'functions/pageSettings.php';
-	require_once 'functions/menu.php';
+	// echo "START";
+	// foreach ($_POST as $key => $value) {
+		// echo htmlspecialchars("$key: $value") . '; ';
+	// }
+	// echo "END";
+	session_write_close();
+	require_once('functions/pageSettings.php');
+	require_once('functions/menu.php');
+	require_once('functions/debug.php');
+	
+	dPrint($_SESSION);
 	
 	if (isset($menu)) {
 		if (isset($_POST['submit'])) {
@@ -30,7 +39,7 @@ headDeclaration ("Scheda candidato - Recapiti");
 ?>
 </head>
 <body>
-	<form action="sapSection02.php" class="form-horizontal" method="post">
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="form-horizontal" method="post">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 col-lg-offset-2">

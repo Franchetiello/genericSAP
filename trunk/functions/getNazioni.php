@@ -4,6 +4,9 @@ require_once ('config.php');
 $htmlCitizenshipResult = "";
 $htmlNationResult = "";
 
+if (!isset($cittadinanzaSelezionata)) { $cittadinanzaSelezionata = ""; }
+if (!isset($nazioneSelezionata)) { $nazioneSelezionata = ""; }
+
 $mysqli = new mysqli ( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 if ($mysqli->connect_errno) {
 	echo "Impossibile connettersi a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
@@ -12,7 +15,7 @@ if ($mysqli->connect_errno) {
 						`diz_cittadinanze`.`IdCittadinanza` As Id,
     				`diz_cittadinanze`.`cittadinanza_nome` As NomeCittadinanza
 					FROM 
-						`db_ebtt`.`diz_cittadinanze`;
+						`diz_cittadinanze`;
 					";
 	
 	if ($result = mysqli_query ( $mysqli, $query )) {
@@ -25,7 +28,7 @@ if ($mysqli->connect_errno) {
 	
 	$data = array ();
 	while ( $row = mysqli_fetch_array ( $result ) ) {
-		$htmlCitizenshipResult .= "<option value=\"" . $row ['Id'] . "\">" . $row ['NomeCittadinanza'] . "</option>";
+		$htmlCitizenshipResult .= "<option value=\"" . $row ['Id'] . "\" ". ($cittadinanzaSelezionata == $row ['Id'] ? "selected" : "")." >" . $row ['NomeCittadinanza'] . "</option>";
 	}
 	// echo json_encode ( $data );
 	
@@ -35,7 +38,7 @@ if ($mysqli->connect_errno) {
 						`diz_nazioni`.`IdNazione` As Id,
     				`diz_nazioni`.`nazione_nome`As NomeNazione
 					FROM 
-						`db_ebtt`.`diz_nazioni`;
+						`diz_nazioni`;
 					";
 	
 	if ($result = mysqli_query ( $mysqli, $query )) {
@@ -48,7 +51,7 @@ if ($mysqli->connect_errno) {
 	
 	$data = array ();
 	while ( $row = mysqli_fetch_array ( $result ) ) {
-		$htmlNationResult .= "<option value=\"" . $row ['Id'] . "\">" . $row ['NomeNazione'] . "</option>";
+		$htmlNationResult .= "<option value=\"" . $row ['Id'] . "\"". ($nazioneSelezionata == $row ['Id'] ? "selected" : "").">" . $row ['NomeNazione'] . "</option>";
 	}
 	// echo json_encode ( $data );
 	

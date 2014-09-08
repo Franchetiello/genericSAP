@@ -83,7 +83,7 @@ function GetRegionList03(elementId, functionName, str, param) {
 	}
 }
 
-function SetCompleyedChoice(ElementID){
+function SetCompletedChoice(ElementID){
 	if (document.getElementById(ElementID).checked){
 		$("#spanAnnoConseguimento").show();
 		$("#annoConseguimento").show();
@@ -104,4 +104,27 @@ function SetCompleyedChoice(ElementID){
 		$("#annoFrequenzaInCorso").show();
 	}
 	
+}
+
+
+//	---------------------------------------------------------------------------------------
+//	Funzioni sapSection05.php
+//	---------------------------------------------------------------------------------------
+function GetRegionList05(elementId, functionName, str, param) {
+	if (str == '118') {
+		$("#spanRegioneLuogoLavoro").show();
+		$("#regioneLuogoLavoro").show();
+		$("#spanProvinciaLuogoLavoro").show();
+		$("#provinciaLuogoLavoro").show();
+		$("#spanComuneLuogoLavoro").show();
+		$("#comuneLuogoLavoro").show();
+		GetList(elementId, functionName, str, param);
+	} else {
+		$("#spanRegioneLuogoLavoro").hide();
+		$("#regioneLuogoLavoro").hide();
+		$("#spanProvinciaLuogoLavoro").hide();
+		$("#provinciaLuogoLavoro").hide();
+		$("#spanComuneLuogoLavoro").hide();
+		$("#comuneLuogoLavoro").hide();
+	}
 }

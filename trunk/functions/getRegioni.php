@@ -1,6 +1,8 @@
 <?php
 require_once ('config.php');
 
+if (!isset($regioneSelezionata)) { $regioneSelezionata = ""; }
+
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 if ($mysqli -> connect_errno) {
 	echo "Impossibile connettersi a MySQL: (" . $mysqli -> connect_errno . ") " . $mysqli -> connect_error;
@@ -10,7 +12,7 @@ if ($mysqli -> connect_errno) {
 						`diz_regioni`.`IdRegione` As Id,
 						`diz_regioni`.`regione_nome` As NomeRegione
 					FROM 
-						`db_ebtt`.`diz_regioni`
+						`diz_regioni`
 			 		WHERE
 						`diz_regioni`.`IdRegione` <> '0'";
 
@@ -38,7 +40,7 @@ if ($mysqli -> connect_errno) {
 	echo "<select id=\"" . $controlId . "\" name=\"" . $controlId . "\" class=\"form-control\"".$onChangeSection.">";
 	echo "<option value=\"\">selezionare una regione..</option>";
 	while ($row = mysqli_fetch_array($result)) {
-		echo "<option value=\"" . $row['Id'] . "\">" . $row['NomeRegione'] . "</option>";
+		echo "<option value=\"" . $row['Id'] . "\" ".($regioneSelezionata == $row['Id'] ? "selected" : "").">" . $row['NomeRegione'] . "</option>";
 	}
 
 	echo "</select>";

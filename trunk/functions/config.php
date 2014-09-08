@@ -1,8 +1,16 @@
 <?php
+
+// configurazione locale
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'db_ebtt');
 define('DB_USER','sapEBTT');
 define('DB_PASSWORD','pR9vLLXybhcXWjEu');
+
+// configurazione demo
+// define('DB_HOST', 'localhost');
+// define('DB_NAME', 'd1cvo_db01');
+// define('DB_USER','d1cvo_uw01');
+// define('DB_PASSWORD','6Hx2hgC8Zp');
 
 define('Italia','118');
 

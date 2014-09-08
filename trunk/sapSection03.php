@@ -1,8 +1,13 @@
 <?php 
 	session_start();
 	
-	require_once 'functions/pageSettings.php';
-	require_once 'functions/menu.php';
+	//session_register('$name')
+	
+	require_once('functions/pageSettings.php');
+	require_once('functions/menu.php');
+	require_once('functions/debug.php');
+	
+	dPrint($_POST);
 	
 	if (isset($menu)) {
 		if (isset($_POST['submit'])) {
@@ -70,7 +75,7 @@
     
 </head>
 <body>
-	<form action="sapSection03.php" class="form-horizontal" method="post">
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="form-horizontal" method="post">
 		<div class="container">
 				<div class="row">
 					<div class="col-lg-8 col-lg-offset-2">
@@ -157,7 +162,7 @@
 												<span id="spanConseguito" class="col-lg-3 control-label">conseguito</span>
 												<div id="conseguito" class="col-lg-9 field">
 													<input type="checkbox" id="cbxConseguito"
-													class="form-control" value="titolo di studio conseguito" onchange="javascript:SetCompleyedChoice('cbxConseguito');">
+													class="form-control" value="titolo di studio conseguito" onchange="javascript:SetCompletedChoice('cbxConseguito');">
 												</div>
 												<div class="break"></div>
 												<span id="spanAnnoConseguimento" class="col-lg-4 control-label">anno di conseguimento</span>
@@ -171,7 +176,7 @@
 												<div class="break"></div>
 												<span id="spanUltimoAnnoFrequentato" class="col-lg-4 control-label">ultimo anno frequentato</span>
 												<div id="ultimoAnnoFrequentato" class="col-lg-2 field"> 									
-													<input type="text" class="form-control" id="txtUltimoAnnoFrequentato" name="txtUltimoAnnoFrequentato"> />
+													<input type="text" class="form-control" id="txtUltimoAnnoFrequentato" name="txtUltimoAnnoFrequentato" />
 												</div>
 												<span id="spanAnnoFrequenzaInCorso" class="col-lg-4 control-label">anno di frequenza (in corso)</span>
 												<div id="annoFrequenzaInCorso" class="col-lg-2 field"> 									
@@ -271,103 +276,114 @@
 								<span class="caption">Lingue straniere conosciute</span>
 							</div>
 							<div class="portlet-body clearfix">
-								<span id="spanRegioneResidenza" class="col-lg-3 control-label">regione</span>
-								<div id="regioneResidenza" class="col-lg-5 field">
-									<?php
-									$targetId = "provinciaResidenza";
-									$controlId = "slcRegioneResidenza";
-									$childId = "p=comuneResidenza";
-									include 'functions/getRegioni.php';
-									?>
-								</div>
-								<div class="break"></div>
-								<span id="spanProvinciaResidenza"
-									class="col-lg-3 control-label">provincia</span>
-								<div id="provinciaResidenza" class="col-lg-5 field">
-									<select class="form-control">
-									</select>
-								</div>
-								<div class="break"></div>
-								<span id="spanComuneResidenza" class="col-lg-3 control-label">comune</span>
-								<div id="comuneResidenza" class="col-lg-5 field">
-									<select class="form-control">
-									</select>
-								</div>
-								<div class="break"></div>
-								<span id="spanCapResidenza" class="col-lg-3 control-label">c.a.p.</span>
-								<div class="col-lg-2 field">
-									<input type="text" id="capResidenza" class="form-control"
-										value="">
-								</div>
-								<div class="break"></div>
-								<span class="col-lg-3 control-label">indirizzo</span>
-								<div class="col-lg-9 field">
-									<input type="text" id="indirizzoResidenza"
-										class="form-control" value="">
-								</div>
-								<div class="break"></div>
+								<table id="tblLingueConosciute" name="tblLingueConosciute" class="col-lg-12">
+									<!-- inserimento dinamico delle righe -->	
+								</table>
+								<a class="btn default green pull-right" data-toggle="modal" href="#LinguaConosciuta"><i class="glyphicon glyphicon-plus"></i>&nbsp;aggiungi lingue conosciute</a>
 							</div>
+							<div class="modal fade" id="LinguaConosciuta" tabindex="-1" role="basic" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="display: none;">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+											<h4 class="modal-title">Conoscenza Lingua</h4>
+										</div>
+										<div class="modal-body">
+											<div class="clearfix">
+												<span class="col-lg-3 control-label">lingua</span>
+												<div id="lingua" class="col-lg-9 field"> 									
+													<?php include('functions/getLingue.php'); ?>
+												</div>
+												<div class="break"></div>
+												<span class="col-lg-3 col-lg-offset-1 control-label">lettura</span>
+												<div id="lettura" class="col-lg-8 field"> 									
+													<?php
+														$controlId = "slcLivelloConoscenzaLettura"; 
+														include('functions/getLivelliConoscenzaLingua.php'); 
+													?>
+												</div>
+												<div class="break"></div>
+												<span class="col-lg-3 col-lg-offset-1 control-label">scrittura</span>
+												<div id="scrittura" class="col-lg-8 field"> 									
+													<?php
+														$controlId = "slcLivelloConoscenzaScrittura"; 
+														include('functions/getLivelliConoscenzaLingua.php'); 
+													?>
+												</div>
+												<div class="break"></div>
+												<span class="col-lg-3 col-lg-offset-1 control-label">conversazione</span>
+												<div id="conversazione" class="col-lg-8 field"> 									
+													<?php
+														$controlId = "slcLivelloConoscenzaConversazione"; 
+														include('functions/getLivelliConoscenzaLingua.php'); 
+													?>
+												</div>
+												<div class="break"></div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn default" data-dismiss="modal">annulla</button>
+											<button type="button" class="btn blue" data-dismiss="modal" onClick="AggiungiLingueConosciute('tblLingueConosciute')"><i class="glyphicon glyphicon-plus"></i>&nbsp;aggiungi..</button>
+										</div>
+									</div>
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal-dialog -->
+							</div>	
 						</div>
 						<div class="portlet blue box">
 							<div class="portlet-title">
 								<span class="caption">Conoscenze informatiche</span>
 							</div>
-							<div class="portlet-body">
-								<span id="spanRegioneResidenza" class="col-lg-3 control-label">regione</span>
-								<div id="regioneResidenza" class="col-lg-5 field">
-									<?php
-									$targetId = "provinciaResidenza";
-									$controlId = "slcRegioneResidenza";
-									$childId = "p=comuneResidenza";
-									include 'functions/getRegioni.php';
-									?>
+							<div class="portlet-body clearfix">
+								<table id="tblConoscenzeInformatiche" name="tblConoscenzeInformatiche" class="col-lg-12">
+									<!-- inserimento dinamico delle righe -->	
+								</table>
+								<a class="btn default green pull-right" data-toggle="modal" href="#ConoscenzaInformatica"><i class="glyphicon glyphicon-plus"></i>&nbsp;aggiungi conoscenze informatiche</a>
+							</div>
+							<div class="modal fade" id="ConoscenzaInformatica" tabindex="-1" role="basic" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="display: none;">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+											<h4 class="modal-title">Conoscenza Informatica</h4>
+										</div>
+										<div class="modal-body">
+											<div class="clearfix">
+												<span class="col-lg-3 control-label">conoscenza informatica</span>
+												<div id="lingua" class="col-lg-9 field"> 						
+													<?php
+														$controlId = "slcConoscenzeInformatiche"; 
+														include('functions/getConoscenzeInformatiche.php'); 
+													?>			
+												</div>
+												<div class="break"></div>
+												<span class="col-lg-3 control-label">grado conoscenza</span>
+												<div id="lettura" class="col-lg-9 field"> 									
+													<?php
+														$controlId = "slcLivelloConoscenzaInformatica"; 
+														include('functions/getLivelliConoscenzeInformatiche.php'); 
+													?>
+												</div>
+												<div class="break"></div>
+												<span class="col-lg-3 control-label">eventuali specifiche</span>
+												<div class="col-lg-9"> 									
+													<textarea class="form-control" rows="6" id="txtEventualiSpecifiche" name="txtEventualiSpecifiche"></textarea>
+													<div class="break"></div> 
+												</div>
+												<div class="break"></div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn default" data-dismiss="modal">annulla</button>
+											<button type="button" class="btn blue" data-dismiss="modal" onClick="AggiungiConoscenzeInformatiche('tblConoscenzeInformatiche')"><i class="glyphicon glyphicon-plus"></i>&nbsp;aggiungi..</button>
+										</div>
+									</div>
+									<!-- /.modal-content -->
 								</div>
-								<div class="break"></div>
-								<span id="spanProvinciaResidenza"
-									class="col-lg-3 control-label">provincia</span>
-								<div id="provinciaResidenza" class="col-lg-5 field">
-									<select class="form-control">
-									</select>
-								</div>
-								<div class="break"></div>
-								<span id="spanComuneResidenza" class="col-lg-3 control-label">comune</span>
-								<div id="comuneResidenza" class="col-lg-5 field">
-									<select class="form-control">
-									</select>
-								</div>
-								<div class="break"></div>
-								<span id="spanCapResidenza" class="col-lg-3 control-label">c.a.p.</span>
-								<div class="col-lg-2 field">
-									<input type="text" id="capResidenza" class="form-control"
-										value="">
-								</div>
-								<div class="break"></div>
-								<span class="col-lg-3 control-label">indirizzo</span>
-								<div class="col-lg-9 field">
-									<input type="text" id="indirizzoResidenza"
-										class="form-control" value="">
-								</div>
-								<div class="break"></div>
+								<!-- /.modal-dialog -->
 							</div>
 						</div>
-					
-						<!--
-						<INPUT type="button" value="Add Row" onClick="addRow('dataTable')" />
-						<INPUT type="button" value="Delete Row" onClick="deleteRow('dataTable')" />
-						
-						<TABLE id="dataTable" width="350px" border="1">
-							<TR>
-								<TD><INPUT type="checkbox" name="chkbox[]"/></TD>
-								<TD> 1 </TD>
-								<TD> <INPUT type="text" name="txtbox[]"/> </TD>
-							</TR>
-						</TABLE>
-						-->
-						<!-- 
-						
-							INSERIRE QUI IL FORM
-							
-						 -->					
 					</div>
 					<div class="col-lg-12 field">
 						<button id="submit" name="submit" value="backward" class="btn default green"><i class="glyphicon glyphicon-step-backward"></i>&nbsp;indietro..</button>

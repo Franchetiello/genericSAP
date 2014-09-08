@@ -462,3 +462,515 @@ function CaricaFormazione(ParentID, Index, Args){
 	// TODO: Implementare il metodo
 }
 
+
+
+/* ----------------------------------------------------------------------------
+		Lingue Conosciute
+---------------------------------------------------------------------------- */
+
+/*
+Inserisce il seguente blocco:
+
+<div class="clearfix" >
+	<!--<div class="blockTitle">-->
+		<span id="spanValoreCorsoStudio[]" class="col-lg-11"><h4 class="bold">livello scolarizzazione</h4></span>
+		<div class="col-lg-1">
+			<button id="submit" name="submit" value="backward" class="btn red btn-xs pull-right"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
+			<button id="submit" name="submit" value="backward" class="btn green btn-xs pull-right"><i class="glyphicon glyphicon glyphicon-pencil"></i></button>
+		</div>
+	<!--</div>-->
+	<div class="break"></div>
+	<span id="spanEtichettaLivelloScolarizzazione[]" class="col-lg-2 col-lg-offset-1">livello</span>
+	<span id="spanValoreLivelloScolarizzazione[]" class="col-lg-8 bold">livello scolarizzazione</span>
+	<div class="break"></div>
+	<span id="spanEtichettaDescrizioneCorsoStudio[]" class="col-lg-2 col-lg-offset-1">descrizione</span>
+	<span id="spanValoreDescrizioneCorsoStudio[]" class="col-lg-8 bold">livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione</span>
+	<div class="break"></div>
+	<span id="spanEtichettaLuogoFrequenza[]" class="col-lg-2 col-lg-offset-1">frequantato a</span>
+	<span id="spanValoreLuogoFrequenza[]" class="col-lg-3 bold">ROMA</span>
+	<span id="spanEtichettaRiconosciutoInItalia[]" class="col-lg-1">&nbsp;</span>
+	<span id="spanValoreRiconosciutoInItalia[]" class="col-lg-3 bold">riconosciuto in italia</span>
+	<div class="break"></div>
+	<span id="spanEtichettaAnnoConseguimento[]" class="col-lg-2 col-lg-offset-1">conseguito il</span>
+	<span id="spanValoreAnnoConseguimento[]" class="col-lg-3 bold">2014</span>
+	<span id="spanEtichettaVotoConseguito[]" class="col-lg-2">con voto</span>
+	<span id="spanValoreVotoConseguito[]" class="col-lg-3 bold">110</span>
+	<div class="break"></div>
+	<span id="spanEtichettaUltimoAnnoFrequenza[]" class="col-lg-3 col-lg-offset-1">ultimo anno di frequenza</span>
+	<span id="spanValoreUltimoAnnoFrequenza[]" class="col-lg-2 bold">2014</span>
+	<span id="spanEtichettaAnnoInCorso[]" class="col-lg-3">anno di frequenza</span>
+	<span id="spanValoreAnnoInCorso[]" class="col-lg-2 bold">2014</span>
+	<div class="break"></div>
+</div>
+<div class="col-lg-12 separator">
+	&nbsp;
+</div>
+*/
+function AggiungiLingueConosciute(ParentID){
+	var table = document.getElementById(ParentID);
+
+  var rowCount = table.rows.length;
+  var row = table.insertRow(rowCount);
+
+  var cell1 = row.insertCell(0);
+	
+	// Elementi ripetuti
+	var divBreak=document.createElement("div");
+	divBreak.setAttribute("class","break");
+	
+	var divSeparator=document.createElement("div");
+	divSeparator.setAttribute("class","col-lg-12 separator");
+	
+	var divContenitore=document.createElement("div");
+	divContenitore.setAttribute("class", "clearfix");
+	
+	var spanValoreLinguaConosciuta=document.createElement("span");
+	spanValoreLinguaConosciuta.setAttribute("id", "spanValoreLinguaConosciuta[]");
+	spanValoreLinguaConosciuta.setAttribute("name", "spanValoreLinguaConosciuta[]");
+	spanValoreLinguaConosciuta.setAttribute("class", "col-lg-11");
+	
+	var h4LinguaConosciuta=document.createElement("h4");
+	h4LinguaConosciuta.setAttribute("class","bold");
+	h4LinguaConosciuta.innerText=document.getElementById("slcLingueConosciute").options[document.getElementById("slcLingueConosciute").selectedIndex].text; 
+	spanValoreLinguaConosciuta.appendChild(h4LinguaConosciuta);
+	
+	divContenitore.appendChild(spanValoreLinguaConosciuta);
+	
+	var hflLinguaConosciuta = document.createElement("input");
+	hflLinguaConosciuta.setAttribute("type","hidden");
+	hflLinguaConosciuta.setAttribute("id","hflLingua[]");
+	hflLinguaConosciuta.setAttribute("name","hflLingua[]");
+	hflLinguaConosciuta.setAttribute("value",document.getElementById("slcLingueConosciute").options[document.getElementById("slcLingueConosciute").selectedIndex].value);
+	divContenitore.appendChild(hflLinguaConosciuta);
+	
+	var divComandi=document.createElement("div");
+	divComandi.setAttribute("class","col-lg-1");
+	
+	var btnRemove=document.createElement("button");
+	btnRemove.setAttribute("id","submit");
+	btnRemove.setAttribute("name","submit");
+	btnRemove.setAttribute("class","btn red btn-xs pull-right");
+	btnRemove.innerHTML="<i class=\"glyphicon glyphicon glyphicon-remove\"></i>";
+	divComandi.appendChild(btnRemove);
+	
+	var btnEdit=document.createElement("button");
+	btnEdit.setAttribute("id","submit");
+	btnEdit.setAttribute("name","submit");
+	btnEdit.setAttribute("class","btn green btn-xs pull-right");
+	btnEdit.innerHTML="<i class=\"glyphicon glyphicon glyphicon-pencil\"></i>";
+	divComandi.appendChild(btnEdit);
+	
+	divContenitore.appendChild(divComandi);
+	divContenitore.appendChild(divBreak.cloneNode(false));
+
+	var spanEtichettaLettura=document.createElement("span");
+	spanEtichettaLettura.setAttribute("id", "spanEtichettaLettura[]");
+	spanEtichettaLettura.setAttribute("name", "spanEtichettaLettura[]");
+	spanEtichettaLettura.setAttribute("class", "col-lg-2 col-lg-offset-1");
+	spanEtichettaLettura.innerText="livello lettura";
+	divContenitore.appendChild(spanEtichettaLettura);
+	
+	var spanValoreLettura=document.createElement("span");
+	spanValoreLettura.setAttribute("id", "spanValoreLettura[]");
+	spanValoreLettura.setAttribute("name", "spanValoreLettura[]");
+	spanValoreLettura.setAttribute("class", "col-lg-8 bold");
+	spanValoreLettura.innerText=document.getElementById("slcLivelloConoscenzaLettura").options[document.getElementById("slcLivelloConoscenzaLettura").selectedIndex].text;
+	divContenitore.appendChild(spanValoreLettura);
+	
+	var hflLivelloLettura = document.createElement("input");
+	hflLivelloLettura.setAttribute("type","hidden");
+	hflLivelloLettura.setAttribute("id","hflLivelloLettura[]");
+	hflLivelloLettura.setAttribute("name","hflLivelloLettura[]");
+	hflLivelloLettura.setAttribute("value",document.getElementById("slcLivelloConoscenzaLettura").options[document.getElementById("slcLivelloConoscenzaLettura").selectedIndex].value);
+	divContenitore.appendChild(hflLivelloLettura);
+	
+	divContenitore.appendChild(divBreak.cloneNode(false));
+
+	var spanEtichettaScrittura=document.createElement("span");
+	spanEtichettaScrittura.setAttribute("id", "spanEtichettaScrittura[]");
+	spanEtichettaScrittura.setAttribute("name", "spanEtichettaScrittura[]");
+	spanEtichettaScrittura.setAttribute("class", "col-lg-2 col-lg-offset-1");
+	spanEtichettaScrittura.innerText="livello scrittura";
+	divContenitore.appendChild(spanEtichettaScrittura);
+
+	var spanValoreScrittura=document.createElement("span");
+	spanValoreScrittura.setAttribute("id", "spanValoreScrittura[]");
+	spanValoreScrittura.setAttribute("name", "spanValoreScrittura[]");
+	spanValoreScrittura.setAttribute("class", "col-lg-8 bold");
+	spanValoreScrittura.innerText=document.getElementById("slcLivelloConoscenzaScrittura").options[document.getElementById("slcLivelloConoscenzaScrittura").selectedIndex].text;
+	divContenitore.appendChild(spanValoreScrittura);
+	
+	var hflLivelloScrittura = document.createElement("input");
+	hflLivelloScrittura.setAttribute("type","hidden");
+	hflLivelloScrittura.setAttribute("id","hflLivelloScrittura[]");
+	hflLivelloScrittura.setAttribute("name","hflLivelloScrittura[]");
+	hflLivelloScrittura.setAttribute("value",document.getElementById("slcLivelloConoscenzaScrittura").options[document.getElementById("slcLivelloConoscenzaScrittura").selectedIndex].value);
+	divContenitore.appendChild(hflLivelloScrittura);
+	
+	divContenitore.appendChild(divBreak.cloneNode(false));
+
+	var spanEtichettaConversazione=document.createElement("span");
+	spanEtichettaConversazione.setAttribute("id", "spanEtichettaConversazione[]");
+	spanEtichettaConversazione.setAttribute("name", "spanEtichettaConversazione[]");
+	spanEtichettaConversazione.setAttribute("class", "col-lg-2 col-lg-offset-1");
+	spanEtichettaConversazione.innerText="livello conversazione";
+	divContenitore.appendChild(spanEtichettaConversazione);
+
+	var spanValoreConversazione=document.createElement("span");
+	spanValoreConversazione.setAttribute("id", "spanValoreConversazione[]");
+	spanValoreConversazione.setAttribute("name", "spanValoreConversazione[]");
+	spanValoreConversazione.setAttribute("class", "col-lg-8 bold");
+	spanValoreConversazione.innerText=document.getElementById("slcLivelloConoscenzaConversazione").options[document.getElementById("slcLivelloConoscenzaConversazione").selectedIndex].text;
+	divContenitore.appendChild(spanValoreConversazione);
+	
+	var hflLivelloConversazione = document.createElement("input");
+	hflLivelloConversazione.setAttribute("type","hidden");
+	hflLivelloConversazione.setAttribute("id","hflLivelloConversazione[]");
+	hflLivelloConversazione.setAttribute("name","hflLivelloConversazione[]");
+	hflLivelloConversazione.setAttribute("value",document.getElementById("slcLivelloConoscenzaConversazione").options[document.getElementById("slcLivelloConoscenzaConversazione").selectedIndex].value);
+	divContenitore.appendChild(hflLivelloConversazione);
+	
+	divContenitore.appendChild(divBreak.cloneNode(false));
+	
+	cell1.appendChild(divContenitore);
+	cell1.appendChild(divSeparator);
+}
+
+function ModificaLinguaConosciuta(ParentID, Index){
+	// TODO: Implementare il metodo
+}
+
+function EliminaLinguaConosciuta(ParentID, Index){
+	// TODO: Implementare il metodo
+}
+
+function CaricaLingueConosciute(ParentID, Index, Args){
+	// TODO: Implementare il metodo
+}
+
+
+
+/* ----------------------------------------------------------------------------
+		Conoscenze informatiche
+---------------------------------------------------------------------------- */
+
+/*
+Inserisce il seguente blocco:
+
+<div class="clearfix" >
+	<!--<div class="blockTitle">-->
+		<span id="spanValoreCorsoStudio[]" class="col-lg-11"><h4 class="bold">livello scolarizzazione</h4></span>
+		<div class="col-lg-1">
+			<button id="submit" name="submit" value="backward" class="btn red btn-xs pull-right"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
+			<button id="submit" name="submit" value="backward" class="btn green btn-xs pull-right"><i class="glyphicon glyphicon glyphicon-pencil"></i></button>
+		</div>
+	<!--</div>-->
+	<div class="break"></div>
+	<span id="spanEtichettaLivelloScolarizzazione[]" class="col-lg-2 col-lg-offset-1">livello</span>
+	<span id="spanValoreLivelloScolarizzazione[]" class="col-lg-8 bold">livello scolarizzazione</span>
+	<div class="break"></div>
+	<span id="spanEtichettaDescrizioneCorsoStudio[]" class="col-lg-2 col-lg-offset-1">descrizione</span>
+	<span id="spanValoreDescrizioneCorsoStudio[]" class="col-lg-8 bold">livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione</span>
+	<div class="break"></div>
+	<span id="spanEtichettaLuogoFrequenza[]" class="col-lg-2 col-lg-offset-1">frequantato a</span>
+	<span id="spanValoreLuogoFrequenza[]" class="col-lg-3 bold">ROMA</span>
+	<span id="spanEtichettaRiconosciutoInItalia[]" class="col-lg-1">&nbsp;</span>
+	<span id="spanValoreRiconosciutoInItalia[]" class="col-lg-3 bold">riconosciuto in italia</span>
+	<div class="break"></div>
+	<span id="spanEtichettaAnnoConseguimento[]" class="col-lg-2 col-lg-offset-1">conseguito il</span>
+	<span id="spanValoreAnnoConseguimento[]" class="col-lg-3 bold">2014</span>
+	<span id="spanEtichettaVotoConseguito[]" class="col-lg-2">con voto</span>
+	<span id="spanValoreVotoConseguito[]" class="col-lg-3 bold">110</span>
+	<div class="break"></div>
+	<span id="spanEtichettaUltimoAnnoFrequenza[]" class="col-lg-3 col-lg-offset-1">ultimo anno di frequenza</span>
+	<span id="spanValoreUltimoAnnoFrequenza[]" class="col-lg-2 bold">2014</span>
+	<span id="spanEtichettaAnnoInCorso[]" class="col-lg-3">anno di frequenza</span>
+	<span id="spanValoreAnnoInCorso[]" class="col-lg-2 bold">2014</span>
+	<div class="break"></div>
+</div>
+<div class="col-lg-12 separator">
+	&nbsp;
+</div>
+*/
+function AggiungiConoscenzeInformatiche(ParentID){
+	var table = document.getElementById(ParentID);
+
+  var rowCount = table.rows.length;
+  var row = table.insertRow(rowCount);
+
+  var cell1 = row.insertCell(0);
+	
+	// Elementi ripetuti
+	var divBreak=document.createElement("div");
+	divBreak.setAttribute("class","break");
+	
+	var divSeparator=document.createElement("div");
+	divSeparator.setAttribute("class","col-lg-12 separator");
+	
+	var divContenitore=document.createElement("div");
+	divContenitore.setAttribute("class", "clearfix");
+	
+	var spanValoreConoscenzaInformatica=document.createElement("span");
+	spanValoreConoscenzaInformatica.setAttribute("id", "spanValoreConoscenzaInformatica[]");
+	spanValoreConoscenzaInformatica.setAttribute("name", "spanValoreConoscenzaInformatica[]");
+	spanValoreConoscenzaInformatica.setAttribute("class", "col-lg-11");
+	
+	var h4ConoscenzaInformatica=document.createElement("h4");
+	h4ConoscenzaInformatica.setAttribute("class","bold");
+	h4ConoscenzaInformatica.innerText=document.getElementById("slcConoscenzeInformatiche").options[document.getElementById("slcConoscenzeInformatiche").selectedIndex].text; 
+	spanValoreConoscenzaInformatica.appendChild(h4ConoscenzaInformatica);
+	
+	divContenitore.appendChild(spanValoreConoscenzaInformatica);
+	
+	var hflConoscenzaInformatica = document.createElement("input");
+	hflConoscenzaInformatica.setAttribute("type","hidden");
+	hflConoscenzaInformatica.setAttribute("id","hflConoscenzaInformatica[]");
+	hflConoscenzaInformatica.setAttribute("name","hflConoscenzaInformatica[]");
+	hflConoscenzaInformatica.setAttribute("value",document.getElementById("slcConoscenzeInformatiche").options[document.getElementById("slcConoscenzeInformatiche").selectedIndex].value);
+	divContenitore.appendChild(hflConoscenzaInformatica);
+	
+	var divComandi=document.createElement("div");
+	divComandi.setAttribute("class","col-lg-1");
+	
+	var btnRemove=document.createElement("button");
+	btnRemove.setAttribute("id","submit");
+	btnRemove.setAttribute("name","submit");
+	btnRemove.setAttribute("class","btn red btn-xs pull-right");
+	btnRemove.innerHTML="<i class=\"glyphicon glyphicon glyphicon-remove\"></i>";
+	divComandi.appendChild(btnRemove);
+	
+	var btnEdit=document.createElement("button");
+	btnEdit.setAttribute("id","submit");
+	btnEdit.setAttribute("name","submit");
+	btnEdit.setAttribute("class","btn green btn-xs pull-right");
+	btnEdit.innerHTML="<i class=\"glyphicon glyphicon glyphicon-pencil\"></i>";
+	divComandi.appendChild(btnEdit);
+	
+	divContenitore.appendChild(divComandi);
+	divContenitore.appendChild(divBreak.cloneNode(false));
+
+	var spanEtichettaLivelloConoscenzaInformatica=document.createElement("span");
+	spanEtichettaLivelloConoscenzaInformatica.setAttribute("id", "spanEtichettaLivelloConoscenzaInformatica[]");
+	spanEtichettaLivelloConoscenzaInformatica.setAttribute("name", "spanEtichettaLivelloConoscenzaInformatica[]");
+	spanEtichettaLivelloConoscenzaInformatica.setAttribute("class", "col-lg-2 col-lg-offset-1");
+	spanEtichettaLivelloConoscenzaInformatica.innerText="livello lettura";
+	divContenitore.appendChild(spanEtichettaLivelloConoscenzaInformatica);
+	
+	var spanValoreLivelloConoscenzaInformatica=document.createElement("span");
+	spanValoreLivelloConoscenzaInformatica.setAttribute("id", "spanValoreLivelloConoscenzaInformatica[]");
+	spanValoreLivelloConoscenzaInformatica.setAttribute("name", "spanValoreLivelloConoscenzaInformatica[]");
+	spanValoreLivelloConoscenzaInformatica.setAttribute("class", "col-lg-8 bold");
+	spanValoreLivelloConoscenzaInformatica.innerText=document.getElementById("slcLivelloConoscenzaInformatica").options[document.getElementById("slcLivelloConoscenzaInformatica").selectedIndex].text;
+	divContenitore.appendChild(spanValoreLivelloConoscenzaInformatica);
+	
+	var hflLivelloConoscenzaInformatica = document.createElement("input");
+	hflLivelloConoscenzaInformatica.setAttribute("type","hidden");
+	hflLivelloConoscenzaInformatica.setAttribute("id","hflLivelloConoscenzaInformatica[]");
+	hflLivelloConoscenzaInformatica.setAttribute("name","hflLivelloConoscenzaInformatica[]");
+	hflLivelloConoscenzaInformatica.setAttribute("value",document.getElementById("slcLivelloConoscenzaInformatica").options[document.getElementById("slcLivelloConoscenzaInformatica").selectedIndex].value);
+	divContenitore.appendChild(hflLivelloConoscenzaInformatica);
+	
+	divContenitore.appendChild(divBreak.cloneNode(false));
+
+	var spanEtichettaEventualiSpecifiche=document.createElement("span");
+	spanEtichettaEventualiSpecifiche.setAttribute("id", "spanEtichettaEventualiSpecifiche[]");
+	spanEtichettaEventualiSpecifiche.setAttribute("name", "spanEtichettaEventualiSpecifiche[]");
+	spanEtichettaEventualiSpecifiche.setAttribute("class", "col-lg-2 col-lg-offset-1");
+	spanEtichettaEventualiSpecifiche.innerText="eventuali specifiche";
+	divContenitore.appendChild(spanEtichettaEventualiSpecifiche);
+
+	var spanValoreEventualiSpecifiche=document.createElement("span");
+	spanValoreEventualiSpecifiche.setAttribute("id", "spanValoreEventualiSpecifiche[]");
+	spanValoreEventualiSpecifiche.setAttribute("name", "spanValoreEventualiSpecifiche[]");
+	spanValoreEventualiSpecifiche.setAttribute("class", "col-lg-8 bold");
+	spanValoreEventualiSpecifiche.innerText=document.getElementById("txtEventualiSpecifiche").value;
+	divContenitore.appendChild(spanValoreEventualiSpecifiche);
+	
+	var hflEventualiSpecifiche = document.createElement("input");
+	hflEventualiSpecifiche.setAttribute("type","hidden");
+	hflEventualiSpecifiche.setAttribute("id","hflEventualiSpecifiche[]");
+	hflEventualiSpecifiche.setAttribute("name","hflEventualiSpecifiche[]");
+	hflEventualiSpecifiche.setAttribute("value",document.getElementById("txtEventualiSpecifiche").value);
+	divContenitore.appendChild(hflEventualiSpecifiche);
+	
+	divContenitore.appendChild(divBreak.cloneNode(false));
+
+	cell1.appendChild(divContenitore);
+	cell1.appendChild(divSeparator);
+}
+
+function ModificaConoscenzeInformatiche(ParentID, Index){
+	// TODO: Implementare il metodo
+}
+
+function EliminaConoscenzeInformatiche(ParentID, Index){
+	// TODO: Implementare il metodo
+}
+
+function CaricaConoscenzeInformatiche(ParentID, Index, Args){
+	// TODO: Implementare il metodo
+}
+
+
+
+/* ----------------------------------------------------------------------------
+		Esperienze Lavorative
+---------------------------------------------------------------------------- */
+
+/*
+Inserisce il seguente blocco:
+
+<div class="clearfix" >
+	<!--<div class="blockTitle">-->
+		<span id="spanValoreCorsoStudio[]" class="col-lg-11"><h4 class="bold">livello scolarizzazione</h4></span>
+		<div class="col-lg-1">
+			<button id="submit" name="submit" value="backward" class="btn red btn-xs pull-right"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
+			<button id="submit" name="submit" value="backward" class="btn green btn-xs pull-right"><i class="glyphicon glyphicon glyphicon-pencil"></i></button>
+		</div>
+	<!--</div>-->
+	<div class="break"></div>
+	<span id="spanEtichettaLivelloScolarizzazione[]" class="col-lg-2 col-lg-offset-1">livello</span>
+	<span id="spanValoreLivelloScolarizzazione[]" class="col-lg-8 bold">livello scolarizzazione</span>
+	<div class="break"></div>
+	<span id="spanEtichettaDescrizioneCorsoStudio[]" class="col-lg-2 col-lg-offset-1">descrizione</span>
+	<span id="spanValoreDescrizioneCorsoStudio[]" class="col-lg-8 bold">livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione livello scolarizzazione</span>
+	<div class="break"></div>
+	<span id="spanEtichettaLuogoFrequenza[]" class="col-lg-2 col-lg-offset-1">frequantato a</span>
+	<span id="spanValoreLuogoFrequenza[]" class="col-lg-3 bold">ROMA</span>
+	<span id="spanEtichettaRiconosciutoInItalia[]" class="col-lg-1">&nbsp;</span>
+	<span id="spanValoreRiconosciutoInItalia[]" class="col-lg-3 bold">riconosciuto in italia</span>
+	<div class="break"></div>
+	<span id="spanEtichettaAnnoConseguimento[]" class="col-lg-2 col-lg-offset-1">conseguito il</span>
+	<span id="spanValoreAnnoConseguimento[]" class="col-lg-3 bold">2014</span>
+	<span id="spanEtichettaVotoConseguito[]" class="col-lg-2">con voto</span>
+	<span id="spanValoreVotoConseguito[]" class="col-lg-3 bold">110</span>
+	<div class="break"></div>
+	<span id="spanEtichettaUltimoAnnoFrequenza[]" class="col-lg-3 col-lg-offset-1">ultimo anno di frequenza</span>
+	<span id="spanValoreUltimoAnnoFrequenza[]" class="col-lg-2 bold">2014</span>
+	<span id="spanEtichettaAnnoInCorso[]" class="col-lg-3">anno di frequenza</span>
+	<span id="spanValoreAnnoInCorso[]" class="col-lg-2 bold">2014</span>
+	<div class="break"></div>
+</div>
+<div class="col-lg-12 separator">
+	&nbsp;
+</div>
+*/
+function AggiungiEsperienzaLavorativa(ParentID){
+	var table = document.getElementById(ParentID);
+
+  var rowCount = table.rows.length;
+  var row = table.insertRow(rowCount);
+
+  var cell1 = row.insertCell(0);
+	
+	// Elementi ripetuti
+	var divBreak=document.createElement("div");
+	divBreak.setAttribute("class","break");
+	
+	var divSeparator=document.createElement("div");
+	divSeparator.setAttribute("class","col-lg-12 separator");
+	
+	var divContenitore=document.createElement("div");
+	divContenitore.setAttribute("class", "clearfix");
+	
+	var spanValoreConoscenzaInformatica=document.createElement("span");
+	spanValoreConoscenzaInformatica.setAttribute("id", "spanValoreConoscenzaInformatica[]");
+	spanValoreConoscenzaInformatica.setAttribute("name", "spanValoreConoscenzaInformatica[]");
+	spanValoreConoscenzaInformatica.setAttribute("class", "col-lg-11");
+	
+	var h4ConoscenzaInformatica=document.createElement("h4");
+	h4ConoscenzaInformatica.setAttribute("class","bold");
+	h4ConoscenzaInformatica.innerText=document.getElementById("slcConoscenzeInformatiche").options[document.getElementById("slcConoscenzeInformatiche").selectedIndex].text; 
+	spanValoreConoscenzaInformatica.appendChild(h4ConoscenzaInformatica);
+	
+	divContenitore.appendChild(spanValoreConoscenzaInformatica);
+	
+	var hflConoscenzaInformatica = document.createElement("input");
+	hflConoscenzaInformatica.setAttribute("type","hidden");
+	hflConoscenzaInformatica.setAttribute("id","hflConoscenzaInformatica[]");
+	hflConoscenzaInformatica.setAttribute("name","hflConoscenzaInformatica[]");
+	hflConoscenzaInformatica.setAttribute("value",document.getElementById("slcConoscenzeInformatiche").options[document.getElementById("slcConoscenzeInformatiche").selectedIndex].value);
+	divContenitore.appendChild(hflConoscenzaInformatica);
+	
+	var divComandi=document.createElement("div");
+	divComandi.setAttribute("class","col-lg-1");
+	
+	var btnRemove=document.createElement("button");
+	btnRemove.setAttribute("id","submit");
+	btnRemove.setAttribute("name","submit");
+	btnRemove.setAttribute("class","btn red btn-xs pull-right");
+	btnRemove.innerHTML="<i class=\"glyphicon glyphicon glyphicon-remove\"></i>";
+	divComandi.appendChild(btnRemove);
+	
+	var btnEdit=document.createElement("button");
+	btnEdit.setAttribute("id","submit");
+	btnEdit.setAttribute("name","submit");
+	btnEdit.setAttribute("class","btn green btn-xs pull-right");
+	btnEdit.innerHTML="<i class=\"glyphicon glyphicon glyphicon-pencil\"></i>";
+	divComandi.appendChild(btnEdit);
+	
+	divContenitore.appendChild(divComandi);
+	divContenitore.appendChild(divBreak.cloneNode(false));
+
+	var spanEtichettaLivelloConoscenzaInformatica=document.createElement("span");
+	spanEtichettaLivelloConoscenzaInformatica.setAttribute("id", "spanEtichettaLivelloConoscenzaInformatica[]");
+	spanEtichettaLivelloConoscenzaInformatica.setAttribute("name", "spanEtichettaLivelloConoscenzaInformatica[]");
+	spanEtichettaLivelloConoscenzaInformatica.setAttribute("class", "col-lg-2 col-lg-offset-1");
+	spanEtichettaLivelloConoscenzaInformatica.innerText="livello lettura";
+	divContenitore.appendChild(spanEtichettaLivelloConoscenzaInformatica);
+	
+	var spanValoreLivelloConoscenzaInformatica=document.createElement("span");
+	spanValoreLivelloConoscenzaInformatica.setAttribute("id", "spanValoreLivelloConoscenzaInformatica[]");
+	spanValoreLivelloConoscenzaInformatica.setAttribute("name", "spanValoreLivelloConoscenzaInformatica[]");
+	spanValoreLivelloConoscenzaInformatica.setAttribute("class", "col-lg-8 bold");
+	spanValoreLivelloConoscenzaInformatica.innerText=document.getElementById("slcLivelloConoscenzaInformatica").options[document.getElementById("slcLivelloConoscenzaInformatica").selectedIndex].text;
+	divContenitore.appendChild(spanValoreLivelloConoscenzaInformatica);
+	
+	var hflLivelloConoscenzaInformatica = document.createElement("input");
+	hflLivelloConoscenzaInformatica.setAttribute("type","hidden");
+	hflLivelloConoscenzaInformatica.setAttribute("id","hflLivelloConoscenzaInformatica[]");
+	hflLivelloConoscenzaInformatica.setAttribute("name","hflLivelloConoscenzaInformatica[]");
+	hflLivelloConoscenzaInformatica.setAttribute("value",document.getElementById("slcLivelloConoscenzaInformatica").options[document.getElementById("slcLivelloConoscenzaInformatica").selectedIndex].value);
+	divContenitore.appendChild(hflLivelloConoscenzaInformatica);
+	
+	divContenitore.appendChild(divBreak.cloneNode(false));
+
+	var spanEtichettaEventualiSpecifiche=document.createElement("span");
+	spanEtichettaEventualiSpecifiche.setAttribute("id", "spanEtichettaEventualiSpecifiche[]");
+	spanEtichettaEventualiSpecifiche.setAttribute("name", "spanEtichettaEventualiSpecifiche[]");
+	spanEtichettaEventualiSpecifiche.setAttribute("class", "col-lg-2 col-lg-offset-1");
+	spanEtichettaEventualiSpecifiche.innerText="eventuali specifiche";
+	divContenitore.appendChild(spanEtichettaEventualiSpecifiche);
+
+	var spanValoreEventualiSpecifiche=document.createElement("span");
+	spanValoreEventualiSpecifiche.setAttribute("id", "spanValoreEventualiSpecifiche[]");
+	spanValoreEventualiSpecifiche.setAttribute("name", "spanValoreEventualiSpecifiche[]");
+	spanValoreEventualiSpecifiche.setAttribute("class", "col-lg-8 bold");
+	spanValoreEventualiSpecifiche.innerText=document.getElementById("txtEventualiSpecifiche").value;
+	divContenitore.appendChild(spanValoreEventualiSpecifiche);
+	
+	var hflEventualiSpecifiche = document.createElement("input");
+	hflEventualiSpecifiche.setAttribute("type","hidden");
+	hflEventualiSpecifiche.setAttribute("id","hflEventualiSpecifiche[]");
+	hflEventualiSpecifiche.setAttribute("name","hflEventualiSpecifiche[]");
+	hflEventualiSpecifiche.setAttribute("value",document.getElementById("txtEventualiSpecifiche").value);
+	divContenitore.appendChild(hflEventualiSpecifiche);
+	
+	divContenitore.appendChild(divBreak.cloneNode(false));
+
+	cell1.appendChild(divContenitore);
+	cell1.appendChild(divSeparator);
+}
+
+function ModificaEsperienzaLavorativa(ParentID, Index){
+	// TODO: Implementare il metodo
+}
+
+function EliminaEsperienzaLavorativa(ParentID, Index){
+	// TODO: Implementare il metodo
+}
+
+function CaricaEsperienzaLavorativa(ParentID, Index, Args){
+	// TODO: Implementare il metodo
+}
+

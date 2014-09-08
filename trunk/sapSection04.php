@@ -32,7 +32,7 @@
 ?>
 </head>
 <body>
-	<form action="sapSection04.php" class="form-horizontal" method="post">
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="form-horizontal" method="post">
 		<div class="container">
 				<div class="row">
 					<div class="col-lg-8 col-lg-offset-2">

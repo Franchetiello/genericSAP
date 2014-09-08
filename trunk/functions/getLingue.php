@@ -6,11 +6,11 @@
 		echo "Impossibile connettersi a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 	} else {
 		$query = "SELECT 
-								`diz_livelli_titoli_studio`.`id`,
-						    `diz_livelli_titoli_studio`.`codice`,
-						    `diz_livelli_titoli_studio`.`descrizione`
+								`diz_lingue`.`id`,
+								`diz_lingue`.`codice`,
+						    `diz_lingue`.`descrizione`
 							FROM 
-								`diz_livelli_titoli_studio`;";
+								`diz_lingue`;";
 	
 		if ($result = mysqli_query ( $mysqli, $query )) {
 			
@@ -21,9 +21,9 @@
 		}
 		
 		$data = array ();
-		
-		echo "<select id=\"slcLivelloStudio\" name=\"slcLivelloStudio\" class=\"form-control\" onchange=\"javascript:GetList('CorsoStudio','getCorsiStudio',(this).value,'')\">";
-		echo "<option value=\"\">selezionare un livello di studio..</option>";
+		$controlId = "slcLingueConosciute";
+		echo "<select id=\"" . $controlId . "\" name=\"" . $controlId . "\" class=\"form-control\">";
+		echo "<option value=\"\">selezionare una lingua..</option>";
 		while ( $row = mysqli_fetch_array ( $result ) ) {
 			echo "<option value=\"" . $row ['id'] . "\">" . $row ['descrizione'] . "</option>";
 		}

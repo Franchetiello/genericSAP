@@ -7,10 +7,11 @@
 	} else {
 	
 		$query = "SELECT 
+								`diz_attestazioni`.`id`,
 								`diz_attestazioni`.`codice`,
 						    `diz_attestazioni`.`descrizione` 
 							FROM 
-								`db_ebtt`.`diz_attestazioni`;";
+								`diz_attestazioni`;";
 	
 		if ($result = mysqli_query($mysqli, $query)) {
 	
@@ -25,7 +26,7 @@
 		echo "<select id=\"" . $controlId . "\" name=\"" . $controlId . "\" class=\"form-control\">";
 		echo "<option value=\"\">selezionare una certificazione o attestazione..</option>";
 		while ($row = mysqli_fetch_array($result)) {
-			echo "<option value=\"" . $row['codice'] . "\">" . $row['descrizione'] . "</option>";
+			echo "<option value=\"" . $row['id'] . "\">" . $row['descrizione'] . "</option>";
 		}
 	
 		echo "</select>";

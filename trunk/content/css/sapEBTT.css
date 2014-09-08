@@ -10,7 +10,7 @@ div.verticaplGap{
 }
 
 div.separator{
-	border-top: 1px solid #e0e0e0;
+	border-bottom: 1px solid #e0e0e0;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
@@ -31,5 +31,9 @@ div.break{
 
 .active{
 	background-color: rgba(75,141,248, 0.25);
+}
+
+.checkboxLabel{
+	padding-top: 5px;
 }
 
