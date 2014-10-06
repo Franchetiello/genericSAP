@@ -186,23 +186,24 @@ class TitoloStudio {
 		}
 	}
 
-	public function Store() {
+	public function Store(PDO $Connection) {
 		if ($this -> id > 0) {
-			$_result = Update();
+			$_result = Update($Connection);
 		} else {
-			$_result = Insert();
+			$_result = Insert($Connection);
 		}
 
 		return $_result;
 	}
 
 	// Protected Methods
-	protected static function Insert($Connection) {
+	protected static function Insert(PDO $Connection) {
 		$result = FALSE;
-		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-		if ($mysqli -> connect_errno) {
-			echo "Impossibile connettersi a MySQL: (" . $mysqli -> connect_errno . ") " . $mysqli -> connect_error;
-		} else {
+		// $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		// if ($mysqli -> connect_errno) {
+			// echo "Impossibile connettersi a MySQL: (" . $mysqli -> connect_errno . ") " . $mysqli -> connect_error;
+		// } else {
+		try {
 			$query = "INSERT INTO `per_titoli_studio`
 									(`ref_id`,
 									`livello_studio`,
@@ -227,13 +228,15 @@ class TitoloStudio {
 									'".$this->votoConseguito."',
 									'".$this->ultimoAnnoFrequenza."',
 									'".$this->annoFrequenza."');";
-									
-			if ($result = mysqli_query($mysqli, $query)) {
-				if (!mysqli_query($mysqli, "SET @a:='this will not work'")) {
-					printf("Error: %s\n", mysqli_error($mysqli));
-					mysqli_free_result($result);
-				}
-			}
+			$stmt = $this -> conn -> prepare($query);
+			$stmt -> execute();
+			$stmt -> closeCursor();
+			
+			$this -> id = $stmt.lastInsertId();
+			 
+			$result = TRUE;
+		} catch (exception $ex){							
+			die("errore durante l'esecuzione dell'operazione '".$query."': ".$ex->getMessage());
 		}
 		return $result;
 	}
@@ -259,18 +262,10 @@ class TitoloStudio {
 			$stmt = $this -> conn -> prepare($query);
 			$stmt -> execute();
 			$stmt -> closeCursor();
-				
 					
-			if ($result = mysqli_query($mysqli, $query)) {
-				if (!mysqli_query($mysqli, "SET @a:='this will not work'")) {
-					printf("Error: %s\n", mysqli_error($mysqli));
-					mysqli_free_result($result);
-				}
-			}
-		
+			$result = TRUE;
 		} catch (exception $ex){
-			
-			
+			die("errore durante l'esecuzione dell'operazione '".$query."': ".$ex->getMessage());
 		}
 		return $result;		
 	}
