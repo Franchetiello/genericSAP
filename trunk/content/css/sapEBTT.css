@@ -37,3 +37,9 @@ div.break{
 	padding-top: 5px;
 }
 
+span.rightButton{
+	display: inline-block;
+	padding: 3px 3px 3px 5px;
+	background-color: #d0d0d0;
+}
+

@@ -4,20 +4,8 @@
 	require_once 'functions/pageSettings.php';
 	require_once 'functions/menu.php';
 	
-	if (isset($menu)) {
-		if (isset($_POST['submit'])) {
-			switch ($_POST['submit']) {
-				case 'save' :
-					/*header("Location: sapSection02.php");*/
-					break;
-				case "backward" :
-					header("Location: sapSection04.php");
-					break;
-				default :
-					break;
-			}
-		}
-	} 
+	$menuIndex = 5;
+	include('functions/navigation.php');
 ?>
 <!DOCTYPE html>
 <?php 
@@ -84,7 +72,7 @@
 												</div>
 												<div class="break"></div>
 												
-												<span class="col-lg-3 control-label">settore attività</span>
+												<span class="col-lg-3 control-label">settore attivit&agrave;</span>
 												<div class="col-lg-9 field"> 									
 													<?php
 														$controlId = "slcAtecoAzienda"; 
@@ -110,7 +98,7 @@
 													<input type="text" class="form-control" id="txtIndirizzoAziendaUtilizzatrice" name="txtIndirizzoAziendaUtilizzatrice" />
 												</div>
 												<div class="break"></div>
-												<span class="col-lg-3 control-label">settore attività</span>
+												<span class="col-lg-3 control-label">settore attivit&agrave;</span>
 												<div class="col-lg-9 field"> 									
 													<?php
 														$controlId = "slcAtecoAziendaUtilizzatrice"; 
@@ -166,7 +154,7 @@
 												</div> -->
 												<div class="col-lg-9">
 													<div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-														<input type="text" name="dataInizio" id="dataInizio" class="form-control" readonly="">
+														<input type="text" name="dataInizio" id="dataInizio" value="01-01-2010" class="form-control" readonly="">
 														<span class="input-group-btn">
 														<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 														</span>
@@ -185,7 +173,7 @@
 												</div> -->
 												<div class="col-lg-9">
 													<div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-														<input type="text" name="dataFine" id="dataFine" class="form-control" readonly="">
+														<input type="text" name="dataFine" id="dataFine" value="31-12-2010" class="form-control" readonly="">
 														<span class="input-group-btn">
 														<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 														</span>
@@ -195,7 +183,7 @@
 												<span class="col-lg-3 control-label">qualifica svolta</span>
 												<div class="col-lg-9 field"> 									
 													<?php
-														$controlId = "slcQualificaProfessionale"; 
+														$controlId = "slcQualificheProfessionali"; 
 														include('functions/getQualificheProfessionali.php'); 
 													?>
 												</div>
@@ -254,7 +242,7 @@
 												<div class="col-lg-9 field"> 									
 													<?php
 														$controlId = "slcModalitaLavoro"; 
-														include('functions/getQualificheProfessionali.php'); 
+														include('functions/getModalitaLavoro.php'); 
 													?>
 												</div>
 												<div class="break"></div>
@@ -262,7 +250,7 @@
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn default" data-dismiss="modal">annulla</button>
-											<button type="button" class="btn blue" data-dismiss="modal" onClick="AggiungiConoscenzeInformatiche('tblConoscenzeInformatiche')"><i class="glyphicon glyphicon-plus"></i>&nbsp;aggiungi..</button>
+											<button type="button" class="btn blue" data-dismiss="modal" onClick="AggiungiEsperienzaLavorativa('tblEsperienzeLavorative')"><i class="glyphicon glyphicon-plus"></i>&nbsp;aggiungi..</button>
 										</div>
 									</div>
 									<!-- /.modal-content -->
@@ -271,10 +259,9 @@
 							</div>
 						</div>					
 					</div>
-					<div class="col-lg-12 field">
-						<button id="submit" name="submit" value="backward" class="btn default green"><i class="glyphicon glyphicon-step-backward"></i>&nbsp;indietro..</button>
-						<button id="submit" name="submit" value="save" class="btn default green pull-right">salva&nbsp;<i class="glyphicon glyphicon-save"></i></button>
-					</div>
+					<?php
+						DisplayNavBar($menuIndex, Count($menu) - 1, TRUE);
+					?>
 				</div>
 			</div>
 		</div>

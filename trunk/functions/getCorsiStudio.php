@@ -28,8 +28,8 @@
 			
 					
 			$data = array ();
-			
-			echo "<select id=\"slcCorsoStudio\" name=\"slcCorsoStudio\" class=\"form-control\" >";
+			if (!isset($controlId)) {$controlId = "slcCorsiStudio";}
+			echo "<select id=\"". $controlId ."\" name=\"". $controlId ."\" class=\"form-control\" >";
 			echo "<option value=\"\">selezionare un corso di studio..</option>";
 			while ( $row = mysqli_fetch_array ( $result ) ) {
 				echo "<option value=\"" . $row ['id'] . "\">" . $row ['titolo'] . "</option>";

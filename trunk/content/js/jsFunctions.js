@@ -39,14 +39,34 @@ function GetList(elementId, functionName, str, param) {
 //	---------------------------------------------------------------------------------------
 function GetRegionList(elementId, functionName, str, param) {
 	if (str == '118') {
+		// $("#spanRegioneNascita").show();
+		// $("#regioneNascita").show();
+		// $("#spanProvinciaNascita").show();
+		// $("#provinciaNascita").show();
+		// $("#spanComuneNascita").show();
+		// $("#comuneNascita").show();
+		ShowRegionList(str);
+
+		GetList(elementId, functionName, str, param);
+	} else {
+		// $("#spanRegioneNascita").hide();
+		// $("#regioneNascita").hide();
+		// $("#spanProvinciaNascita").hide();
+		// $("#provinciaNascita").hide();
+		// $("#spanComuneNascita").hide();
+		// $("#comuneNascita").hide();
+		ShowRegionList(str);
+	}
+}
+
+function ShowRegionList(str){
+	if (str == '118') {
 		$("#spanRegioneNascita").show();
 		$("#regioneNascita").show();
 		$("#spanProvinciaNascita").show();
 		$("#provinciaNascita").show();
 		$("#spanComuneNascita").show();
 		$("#comuneNascita").show();
-
-		GetList(elementId, functionName, str, param);
 	} else {
 		$("#spanRegioneNascita").hide();
 		$("#regioneNascita").hide();
@@ -56,7 +76,6 @@ function GetRegionList(elementId, functionName, str, param) {
 		$("#comuneNascita").hide();
 	}
 }
-
 //	---------------------------------------------------------------------------------------
 //	Funzioni sapSection03.php
 //	---------------------------------------------------------------------------------------
@@ -106,6 +125,13 @@ function SetCompletedChoice(ElementID){
 	
 }
 
+function SetHomeAddressChoice(ElementID){
+	if (document.getElementById(ElementID).checked){
+		$("#divDomicilio").show();
+	}else{
+		$("#divDomicilio").hide();
+	}
+}
 
 //	---------------------------------------------------------------------------------------
 //	Funzioni sapSection05.php

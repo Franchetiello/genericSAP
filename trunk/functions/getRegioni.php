@@ -46,8 +46,7 @@ if ($mysqli -> connect_errno) {
 	echo "</select>";
 
 	mysqli_free_result($result);
-
-	unset($item0Description);
+	
 	mysqli_close($mysqli);
 }
 ?>

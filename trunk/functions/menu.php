@@ -12,15 +12,21 @@ $menu[5] = array( "name" => "menuSection05", "description" => "esperienze profes
 
 function DisplayMenu($Active) {
 	global $menu;
-	
+	$_index = -1;
 	
 	echo "<div class=\"navbar-collapse collapse\">";
 	echo "<ul class=\"nav navbar-nav\">";
 	for ($i = 0; $i < count($menu); $i++){
-		$classValue = (($menu[$i]["name"] == $Active) ? "class=\"active\"" : "");
-		echo "<li id=\"" . $menu[$i]['name'] . "\" name=\"" . $menu[$i]['name'] . "\" " . $classValue . "><a href=\"" . $menu[$i]['page'] . "\" target=\"" . $menu[$i]['target'] . "\">" .  $menu[$i]['description'] . "</a></li>";
+		$className = "";
+		if ($menu[$i]["name"] == $Active){
+			$_index = $i;
+			$className = "class=\"active\"";
+		}
+		echo "<li id=\"" . $menu[$i]['name'] . "\" name=\"" . $menu[$i]['name'] . "\" " . $className . "><a href=\"" . $menu[$i]['page'] . "\" target=\"" . $menu[$i]['target'] . "\">" .  $menu[$i]['description'] . "</a></li>";
 	}
 	echo "</ul>";
 	echo "</div>";
+	
+	return $_index;
 }
 ?>

@@ -1,28 +1,34 @@
 <?php 
 	session_start();
 	
-	//session_register('$name')
+	//$aTitoliStudio = new array
+	
+	
+	if(isset($_POST['slcRegioneResidenza'])){$_SESSION['regioneResidenza']=$_POST['slcRegioneResidenza']; }
+	if(isset($_POST['slcProvinciaResidenza'])){$_SESSION['provinciaResidenza']=$_POST['slcProvinciaResidenza']; }
+	if(isset($_POST['slcComuneResidenza'])){$_SESSION['comuneResidenza']=$_POST['slcComuneResidenza']; }
+	if(isset($_POST['capResidenza'])){$_SESSION['capResidenza']=$_POST['capResidenza']; }
+	if(isset($_POST['indirizzoResidenza'])){$_SESSION['indirizzoResidenza']=$_POST['indirizzoResidenza']; }
+	
+	if(isset($_POST['slcRegioneDomicilio'])){$_SESSION['regioneDomicilio']=$_POST['slcRegioneDomicilio']; }
+	if(isset($_POST['slcProvinciaDomicilio'])){$_SESSION['provinciaDomicilio']=$_POST['slcProvinciaDomicilio']; }
+	if(isset($_POST['slcComuneDomicilio'])){$_SESSION['comuneDomicilio']=$_POST['slcComuneDomicilio']; }
+	if(isset($_POST['capDomicilio'])){$_SESSION['capDomicilio']=$_POST['capDomicilio']; }
+	if(isset($_POST['indirizzoDomicilio'])){$_SESSION['indirizzoDomicilio']=$_POST['indirizzoDomicilio']; }
+	
+	if(isset($_POST['numeroFisso'])){ $_SESSION['numeroFisso']=$_POST['numeroFisso']; }
+	if(isset($_POST['numeroMobile'])){$_SESSION['numeroMobile']=$_POST['numeroMobile']; }
+	if(isset($_POST['email'])){$_SESSION['email']=$_POST['email']; }
 	
 	require_once('functions/pageSettings.php');
 	require_once('functions/menu.php');
 	require_once('functions/debug.php');
 	
-	dPrint($_POST);
+	dPrint($_SESSION);
 	
-	if (isset($menu)) {
-		if (isset($_POST['submit'])) {
-			switch ($_POST['submit']) {
-				case 'forward' :
-					header("Location: sapSection04.php");
-					break;
-				case "backward" :
-					header("Location: sapSection02.php");
-					break;
-				default :
-					break;
-			}
-		}
-	} 
+	$menuIndex = 3;
+	include('functions/navigation.php');
+ 
 ?>
 <!DOCTYPE html>
 <?php 
@@ -110,7 +116,11 @@
 											<div class="clearfix">
 												<span class="col-lg-3 control-label">livello</span>
 												<div id="LivelloStudio" class="col-lg-9 field">
-													<?php include('functions/getLivelliStudio.php'); ?>
+												<?php
+													$controlId = "slcLivelliStudio";
+													$targetId ="slcCorsiStudio"; 
+													include('functions/getLivelliStudio.php'); 
+												?>
 												</div>
 												<div class="break"></div>
 												<span class="col-lg-3 control-label">corso di studio</span>
@@ -385,10 +395,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-12 field">
-						<button id="submit" name="submit" value="backward" class="btn default green"><i class="glyphicon glyphicon-step-backward"></i>&nbsp;indietro..</button>
-						<button id="submit" name="submit" value="forward" class="btn default green pull-right">continua..&nbsp;<i class="glyphicon glyphicon-step-forward"></i></button>
-					</div>
+					<?php
+						DisplayNavBar($menuIndex, Count($menu) - 1, TRUE);
+					?>
 				</div>
 			</div>
 		</div>
@@ -397,6 +406,4 @@
 <?php
 	jsSection(); 
 ?>
-<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<script src="content/js/jsListFunctions.js" type="text/javascript"></script>
 </html>

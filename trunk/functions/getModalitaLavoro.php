@@ -1,18 +1,16 @@
 <?php
-  require_once ('config.php');
-	
-	// TODO: Gestire la ricerca...
+	require_once ('config.php');
 	
 	$mysqli = new mysqli ( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 	if ($mysqli->connect_errno) {
 		echo "Impossibile connettersi a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 	} else {
 		$query = "SELECT 
-								`diz_ateco_2007`.`id`,
-    						`diz_ateco_2007`.`codice`,
-						    `diz_ateco_2007`.`descrizione` 
-							FROM 
-								`diz_ateco_2007`;";
+								`diz_modalita_lavoro`.`id`,
+						    `diz_modalita_lavoro`.`codice`,
+						    `diz_modalita_lavoro`.`descrizione`
+    					FROM 
+								`diz_modalita_lavoro`;";
 	
 		if ($result = mysqli_query ( $mysqli, $query )) {
 			
@@ -23,9 +21,9 @@
 		}
 		
 		$data = array ();
-		if (!isset($controlId)) {$controlId = "slcAteco";}
+		if (!isset($controlId)) {$controlId = "slcTipiContratti";}
 		echo "<select id=\"" . $controlId . "\" name=\"" . $controlId . "\" class=\"form-control\">";
-		echo "<option value=\"\">selezionare un settore di attivit&agrave;..</option>";
+		echo "<option value=\"\">selezionare una modali&agrave; di lavoro..</option>";
 		while ( $row = mysqli_fetch_array ( $result ) ) {
 			echo "<option value=\"" . $row ['id'] . "\">" . $row ['descrizione'] . "</option>";
 		}

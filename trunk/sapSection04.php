@@ -4,20 +4,8 @@
 	require_once 'functions/pageSettings.php';
 	require_once 'functions/menu.php'; 
 	
-	if (isset($menu)) {
-		if (isset($_POST['submit'])) {
-			switch ($_POST['submit']) {
-				case 'forward' :
-					header("Location: sapSection05.php");
-					break;
-				case "backward" :
-					header("Location: sapSection03.php");
-					break;
-				default :
-					break;
-			}
-		}
-	}	
+	$menuIndex = 4;
+	include('functions/navigation.php');
 ?>
 <!DOCTYPE html>
 <?php 
@@ -51,10 +39,9 @@
 							
 						 -->					
 					</div>
-					<div class="col-lg-12 field">
-						<button id="submit" name="submit" value="backward" class="btn default green"><i class="glyphicon glyphicon-step-backward"></i>&nbsp;indietro..</button>
-						<button id="submit" name="submit" value="forward" class="btn default green pull-right">continua..&nbsp;<i class="glyphicon glyphicon-step-forward"></i></button>
-					</div>
+					<?php
+						DisplayNavBar($menuIndex, Count($menu) - 1, TRUE);
+					?>
 				</div>
 			</div>
 		</div>

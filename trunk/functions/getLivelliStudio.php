@@ -22,7 +22,13 @@
 		
 		$data = array ();
 		
-		echo "<select id=\"slcLivelloStudio\" name=\"slcLivelloStudio\" class=\"form-control\" onchange=\"javascript:GetList('CorsoStudio','getCorsiStudio',(this).value,'')\">";
+		$onChangeSection = "";
+		if (isset($targetId)){
+			if(!isset($childId)){$childId = "";}
+			$onChangeSection = " onchange=\"javascript:GetList('" . $targetId . "','getProvince',(this).value,'" . $childId . "')\"";
+		}
+		if (!isset($controlId)) {$controlId = "slcLivelliStudio";}
+		echo "<select id=\"" . $controlId . "\" name=\"" . $controlId . "\" class=\"form-control\"  class=\"form-control\"".$onChangeSection."\">";
 		echo "<option value=\"\">selezionare un livello di studio..</option>";
 		while ( $row = mysqli_fetch_array ( $result ) ) {
 			echo "<option value=\"" . $row ['id'] . "\">" . $row ['descrizione'] . "</option>";

@@ -27,8 +27,9 @@ $settingsPath="assets/plugins/revolution_slider/rs-plugin/css/settings.css";
 $jqueryThemepunchPath="assets/plugins/revolution_slider/rs-plugin/js/jquery.themepunch.plugins.min.js";
 $jqueryThemepunchRevolutionPath="assets/plugins/revolution_slider/rs-plugin/js/jquery.themepunch.revolution.min.js";
 
-$jsDatePicker="content/js/datePicker.js";
-$jsComponentPicker="content/js/componentPickers.js";
+// Bootsptrap DatePicker
+$jsDatePicker="assets/plugins/datepicker/js/bootstrap-datepicker.js";
+$styleDatePicker = "assets/plugins/datepicker/css/datepicker.css";
 
 $styleMetronicPath="assets/css/style-metronic.css";
 $stylePath="assets/css/style.css";
@@ -48,7 +49,7 @@ $jsAppPath="assets/scripts/app.js";
 $jsIndexPath="assets/scripts/index.js";
 
 $cssAppPath = "content/css/sapEBTT.css";
-$styleDatePicker = "content/css/datePicker.css";
+
 
 function htmlDeclaration(){
 	global $lang;
@@ -82,14 +83,15 @@ function headDeclaration($PageTitle){
 	
 	echo "<link href=\"" . $styleComponentsPath . "\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
 	echo "<link href=\"" . $stylePluginsPath . "\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
+	echo "<link href=\"content/css/datepicker3.css\" rel=\"stylesheet\" type=\"text/css\" id=\"style_color\"/>";
 }
 
 function jsSection(){
-	global $jqueryMigratePath, $jsBootstrapPath, $jsBackToTopPath, $jsFancyboxPath, $jsHoverDropdown, $jqueryThemepunchPath, $jqueryThemepunchRevolutionPath, $jsIE9orLesser, $jqueryPath, $jqueryBxsliderPath, $jsAppPath, $jsIndexPath, $jsDatePicker, $jsComponentPicker;
+	global $jqueryMigratePath, $jsBootstrapPath, $jsBackToTopPath, $jsFancyboxPath, $jsHoverDropdown, $jqueryThemepunchPath, $jqueryThemepunchRevolutionPath, $jsIE9orLesser, $jqueryPath, $jqueryBxsliderPath, $jsAppPath, $jsIndexPath, $jsDatePicker;
 
 	echo "<script src=\"" . $jqueryPath . "\" type=\"text/javascript\"></script>";
-	echo "<script src=\"" . $jsBootstrapPath . "\" type=\"text/javascript\"></script>";
 	echo "<script src=\"" . $jqueryMigratePath . "\" type=\"text/javascript\"></script>";
+	echo "<script src=\"" . $jsBootstrapPath . "\" type=\"text/javascript\"></script>";
 	echo "<script src=\"" . $jsBackToTopPath . "\" type=\"text/javascript\"></script>";
 	
 	echo "<script src=\"" . $jsFancyboxPath . "\" type=\"text/javascript\"></script>";
@@ -104,19 +106,42 @@ function jsSection(){
 	echo "<script src=\"" . $jsIndexPath . "\" type=\"text/javascript\"></script>";
 	
 	echo "<script src=\"" . $jsDatePicker . "\" type=\"text/javascript\"></script>";
-	echo "<script src=\"" . $jsComponentPicker . "\" type=\"text/javascript\"></script>";
 	
 	echo "<script src=\"content/js/jsFunctions.js\" type=\"text/javascript\"></script>";
+	//echo ""<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>""
+	echo "<script src=\"content/js/jsListFunctions.js\" type=\"text/javascript\"></script>";
+	
+	// echo "<script type=\"text/javascript\">";
+	// echo "	jQuery(document).ready(function() {";
+	// echo "		App.init();"; 
+	// echo "		App.initBxSlider();";
+	// echo "		Index.initRevolutionSlider();";
+	// echo "	});";
+	// echo "</script>";
+	
+	echo "<script src=\"content/js/metronic.js\" type=\"text/javascript\"></script>";
+	
+	echo "<script src=\"content/js/bootstrap-datepicker.js\" type=\"text/javascript\"></script>";
+	echo "<script src=\"content/js/component-pickers.js\" type=\"text/javascript\"></script>";
 	
 	echo "<script type=\"text/javascript\">";
 	echo "	jQuery(document).ready(function() {";
 	echo "		App.init();"; 
-	echo "		App.initBxSlider();";
-	echo "		Index.initRevolutionSlider();";
-	echo "		Metronic.init();";	
+	echo "		Metronic.init();";
 	echo "		ComponentsPickers.init();";
 	echo "	});";
 	echo "</script>";
 } 
+
+function DisplayNavBar($currentIndex, $lastIndex, $editMode){
+	echo "<div class=\"col-lg-12 field\">".$currentIndex." - ".$lastIndex."</div>";
+	
+	echo "<div class=\"col-lg-12 field\">";
+	echo ( ($currentIndex > 0) ? "	<button id=\"submit\" name=\"submit\" value=\"backward\" class=\"btn default blue\"><i class=\"glyphicon glyphicon-step-backward\"></i>&nbsp;indietro..</button>" : "");
+	echo "	<button id=\"submit\" name=\"submit\" value=\"cancel\" class=\"btn default red\"><i class=\"glyphicon glyphicon-remove\"></i>&nbsp;annulla</button>";
+	echo ( ($currentIndex < $lastIndex) ? "	<button id=\"submit\" name=\"submit\" value=\"forward\" class=\"btn default blue pull-right\">continua..&nbsp;<i class=\"glyphicon glyphicon-step-forward\"></i></button>" : "");
+	echo ( ($editMode) ? "	<button id=\"submit\" name=\"submit\" value=\"save\" class=\"btn default green pull-right\"><i class=\"glyphicon glyphicon-save\"></i>&nbsp;salva</button>" : "");
+	echo "</div>";
+}
 
 ?>

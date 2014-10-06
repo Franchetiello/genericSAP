@@ -208,11 +208,6 @@ var ComponentsPickers = function () {
         //main function to initiate the module
         init: function () {
             handleDatePickers();
-            handleTimePickers();
-            handleDatetimePicker();
-            handleDateRangePickers();
-            handleClockfaceTimePickers();
-            handleColorPicker();
         }
     };
 

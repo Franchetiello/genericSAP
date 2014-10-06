@@ -10,10 +10,14 @@ if ($mysqli->connect_errno) {
 	if (isset($_GET['q'])){
 		$filter = $_GET ['q'];
 	}	else {
-		if (isset($regioneSelezionata) & strlen($regioneSelezionata)){ $filter = $regioneSelezionata; }
+		if (isset($regioneSelezionata)){
+			if(strlen($regioneSelezionata) > 0){
+				$filter = $regioneSelezionata;
+			}
+		}
 	}
 	
-	if (isset ($filter)) {
+	if (isset($filter)) {
 		$query = "SELECT 
 						`diz_province`.`IdProvincia` As Id,
     				`diz_province`.`provincia_nome` As NomeProvincia
@@ -34,25 +38,35 @@ if ($mysqli->connect_errno) {
 		
 		if (isset ( $_GET ['p'] )) {
 			$childId = $_GET ['p'];
-			
-			$controlId = str_replace("comune", "slcProvincia", $childId);
-			echo "<select id=\"".$controlId."\" name=\"".$controlId."\" class=\"form-control\" onchange=\"javascript:GetList('" . $childId . "','getComuni',(this).value,'" ."p=" . $childId . "')\">";
-			echo "<option value=\"\">selezionare una provincia..</option>";
-			while ( $row = mysqli_fetch_array ( $result ) ) {
-				echo "<option value=\"" . $row ['Id'] . "\" ".($provinciaSelezionata == $row['Id'] ? "selected" : "").">" . $row ['NomeProvincia'] . "</option>";
-			}
-			
-			echo "</select>";
-			
-			unset ( $childId );
+			$subChildId = "p=".$childId;
+		} else {
+			$subChildId = $childId;
+			$childId = str_replace("p=", "", $childId);
 		}
+		
+		$onChangeSection = "";
+		if (isset($childId)){
+			$onChangeSection = " onchange=\"javascript:GetList('" . $childId . "','getComuni',(this).value,'" . $subChildId . "')\"";
+		}	
+		
+		$controlId = str_replace("comune", "slcProvincia", $childId);
+		echo "<select id=\"".$controlId."\" name=\"".$controlId."\" class=\"form-control\"".$onChangeSection.">";
+		echo "<option value=\"\">selezionare una provincia..</option>";
+		while ( $row = mysqli_fetch_array ( $result ) ) {
+			echo "<option value=\"" . $row ['Id'] . "\" ".($provinciaSelezionata == $row['Id'] ? "selected" : "").">" . $row ['NomeProvincia'] . "</option>";
+		}
+		
+		echo "</select>";
+		
+		//unset ( $childId );
+		
 		mysqli_free_result ( $result );
 	}
 	mysqli_close ( $mysqli );
 }
 
-unset($provinciaSelezionata);
-unset($regioneSelezionata);
+// unset($provinciaSelezionata);
+// unset($regioneSelezionata);
 unset($filter);
 
 ?>

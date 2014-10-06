@@ -18,10 +18,11 @@ if(isset($_POST['slcRegioneNascita'])){$_SESSION['regioneNascita']=$_POST['slcRe
 if(isset($_POST['slcProvinciaNascita'])){$_SESSION['provinciaNascita']=$_POST['slcProvinciaNascita']; }
 if(isset($_POST['slcComuneNascita'])){$_SESSION['comuneNascita']=$_POST['slcComuneNascita']; }
 if(isset($_POST['cittadinanza'])){$_SESSION['cittadinanza']=$_POST['cittadinanza']; }
-if(isset($_POST['autorizzazioneDatiPersonali'])){$_SESSION['autorizzazioneDatiPersonali']=$_POST['autorizzazioneDatiPersonali']; }
+if(isset($_POST['autorizzazioneDatiPersonali'])){$_SESSION['autorizzazioneDatiPersonali']=$_POST['autorizzazioneDatiPersonali']; }else{$_SESSION['autorizzazioneDatiPersonali']="";}
 
 require_once('functions/pageSettings.php');
 require_once('functions/menu.php');
+require_once('functions/datePickerFunctions.php');
 require_once('functions/debug.php');
 //	-------------------------------------------------------
 //	Funzioni di navigazione
@@ -29,20 +30,22 @@ require_once('functions/debug.php');
 
 dPrint($_SESSION);
 
-if (isset($menu)) {
-	if (isset($_POST['submit'])) {
-		switch ($_POST['submit']) {
-			case 'forward' :
-				header("Location: sapSection02.php");
-				break;
-			case "backward" :
-				header("Location: index.php");
-				break;
-			default :
-				break;
-		}
-	}
-}
+// if (isset($menu)) {
+	// if (isset($_POST['submit'])) {
+		// switch ($_POST['submit']) {
+			// case 'forward' :
+				// header("Location: sapSection02.php");
+				// break;
+			// case "backward" :
+				// header("Location: index.php");
+				// break;
+			// default :
+				// break;
+		// }
+	// }
+// }
+$menuIndex = 1;
+include('functions/navigation.php');
 ?>
 <!DOCTYPE html>
 <?php
@@ -64,7 +67,7 @@ htmlDeclaration();
 					$cittadinanzaSelezionata = (isset($_SESSION['cittadinanza']) ? $_SESSION['cittadinanza'] : "");
 					$nazioneSelezionata  = (isset($_SESSION['statoNascita']) ? $_SESSION['statoNascita'] : "");
 					
-					include ('functions/getNazioni.php');
+					include('functions/getNazioni.php');
 					?>
 				</div>
 			</div>
@@ -105,24 +108,19 @@ htmlDeclaration();
 								</div>
 								<div class="break"></div>
 								<span class="col-lg-3 control-label">data di nascita</span>
-								<!-- <div class="col-lg-2 field">
-									<div class="input-group input-medium date date-picker">
-										<input type="text" id="dataNascita" name="dataNascita" data-date-format="dd-mm-yyyy" class="form-control" readonly="">
-										<span class="input-group-btn">
-											<button id="btnDataNascita" class="btn default" type="button">
-												<i class="fa fa-calendar"></i>
-											</button> </span>
+								<div class="col-lg-2">
+									<?php
+										if (!isset($datePickerArray)){ $datePickerArray = array(); }
+										$datePickerArray[count($datePickerArray)] = "dataNascita";
+									?>
+									<div class="col-lg-12 field">
+										<div name="<?php echo 'div' . ucfirst($datePickerArray[count($datePickerArray) - 1]); ?>" id="<?php echo 'div' . ucfirst($datePickerArray[count($datePickerArray) - 1]); ?>" class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" >
+											<input type="text" name="<?php echo $datePickerArray[count($datePickerArray) - 1]; ?>" id="<?php echo $datePickerArray[count($datePickerArray) - 1]; ?>" value="<?php echo (isset($_SESSION['dataNascita']) ? $_SESSION['dataNascita'] : ""); ?>" class="form-control" readonly>
+											<span class="input-group-btn">
+											<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+											</span>
+										</div>
 									</div>
-								</div> -->
-								
-								<div class="col-md-3">
-									<div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-										<input type="text" name="dataNascita" id="dataNascita" class="form-control" readonly="" value="<?php echo (isset($_SESSION['dataNascita']) ? $_SESSION['dataNascita'] : ""); ?>">
-										<span class="input-group-btn">
-										<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-										</span>
-									</div>
-									
 								</div>
 								<div class="break"></div>
 								<span class="col-lg-3 control-label">stato di nascita</span>
@@ -209,33 +207,29 @@ htmlDeclaration();
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-12 field">
+					<!-- <div class="col-lg-12 field">
 						<button id="submit" name="submit" value="backward" class="btn default green"><i class="glyphicon glyphicon-step-backward"></i>&nbsp;indietro..</button>
 						<button id="submit" name="submit" value="forward" class="btn default green pull-right">continua..&nbsp;<i class="glyphicon glyphicon-step-forward"></i></button>
-					</div>
+					</div> -->
+					<?php
+						DisplayNavBar($menuIndex, Count($menu) - 1, TRUE);
+					?>
 				</div>
 			</div>
 		</div>
 	</form>
 </body>
 <?php
-jsSection();
+	jsSection();
+	//EnableDatePicker($datePickerArray)
+	echo "<script type=\"text/javascript\">";
+	echo "	ShowRegionList(".$nazioneSelezionata.")";
+	if ($nazioneSelezionata == 118){
+		//echo "	GetRegionList('regioneNascita','getRegioniPerNazione','".$nazioneSelezionata."', 'p=comuneNascita')";
+		//if (isset( $_SESSION['regioneNascita'])) {	echo "	GetList('provinciaNascita','getGetProvince','".$_SESSION['regioneNascita']."', 'p=comuneNascita')";}
+		//if (isset( $_SESSION['provinciaNascita'])) {	echo "	GetList('comuneNascita','getGetComuni','".$_SESSION['provinciaNascita']."', '')";}
+	}
+	echo "</script>";	
 ?>
-<script src="http://goprintme.com/metronic/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<script>
-	$(function() {
-		$("#dataNascita").datepicker({
-			showOn : "btnDataNascita"
-		});
-
-	});
-
-	/* $(document).ready(
-	 $function() {
-	 $("#dataNascita").datepicker();
-	 }
-	 ); */
-</script>
 
 </html>
